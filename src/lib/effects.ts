@@ -1,4 +1,5 @@
 const effectsList = [
+    'none',
     'airbrush',
     'chalkboard',
     'collage',
@@ -14,7 +15,6 @@ const effectsList = [
     'mirror-v',
     'mosaic',
     'night-vision',
-    'none',
     'pencil',
     'photo-border',
     'selective-color',
