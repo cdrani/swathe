@@ -1,14 +1,20 @@
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte'
+    import { onMount } from 'svelte'
     import { effectsList } from '$lib/effects'
-
-    const dispatch = createEventDispatcher()
+    import { selection } from '../../stores/effect'
 
     function handleEffect(e: MouseEvent) {
         const button = e.target as HTMLButtonElement
         const effect = button.getAttribute('aria-label') ?? 'none'
-        dispatch('message', { effect })
+        selection.set(effect)
     }
+
+    onMount(() => {
+        const currentEffect = $selection
+
+        const selectedElement = document.getElementById(currentEffect)
+        selectedElement?.scrollIntoView()
+    })
 </script>
 
 <aside
@@ -23,11 +29,13 @@
         <ul class="flex flex-col h-full scroll-smooth overflow-auto overscroll-contain">
             {#each effectsList as effect (effect)}
                 <li
-                    class="px-1 py-1 text-lg hover:rounded active:rounded hover:font-bold hover:text-black active:text-black hover:bg-white active:bg-white"
+                    id={effect}
+                    class="mb-2 px-1 py-1 text-lg hover:rounded-md hover:font-bold hover:text-black hover:bg-white"
+                    class:selection={$selection == effect}
                 >
-                    <button class="w-full h-full" aria-label={effect} on:click={handleEffect}
-                        >{effect}</button
-                    >
+                    <button class="w-full h-full" aria-label={effect} on:click={handleEffect}>
+                        {effect}
+                    </button>
                 </li>
             {/each}
         </ul>
