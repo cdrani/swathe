@@ -1,10 +1,12 @@
+type KV = Record<string, string | object>
+
 interface MirrorEffectsParams {
-    before: Record<string, any>
-    after: Record<string, any>
+    after: KV
+    before: KV
     placement?: { top: number; bottom: number }
 }
 
-const mirrorEffects = (params: MirrorEffectsParams): Record<string, any> => {
+const mirrorEffects = (params: MirrorEffectsParams): KV => {
     const { before, after, placement = { top: 0, bottom: 0 } } = params
 
     return {
@@ -23,12 +25,12 @@ const mirrorEffects = (params: MirrorEffectsParams): Record<string, any> => {
 
 interface BlockPositionParams {
     key: string
-    filter: Record<string, any>
-    placement: Record<string, any>
-    pseudo?: Record<string, any>
+    filter: KV
+    placement: KV
+    pseudo?: Record<string, object>
 }
 
-const blockPosition = (params: BlockPositionParams): Record<string, any> => {
+const blockPosition = (params: BlockPositionParams): KV => {
     const { key, placement, filter, pseudo = {} } = params
 
     return {
@@ -49,7 +51,7 @@ const blockPosition = (params: BlockPositionParams): Record<string, any> => {
 
 // TODO: key should be based off of the effectsList so they are in sync
 interface ImageEffect {
-    [key: string]: Record<string, any>
+    [key: string]: KV
 }
 
 const imageEffects = (src: string): ImageEffect => ({
