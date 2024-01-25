@@ -31,7 +31,7 @@
     aria-label="upload"
     on:dragover|preventDefault
     on:drop|preventDefault={handleDrop}
-    class="relative flex items-center place-content-center justify-self-center transition bg-white border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 focus:outline-none"
+    class="relative flex items-center place-content-center justify-self-center transition bg-white border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 focus:outline-none m-4 md:m-8 lg:m-12"
 >
     <label class="flex justify-center w-96 h-48 px-4 cursor-pointer">
         <span class="flex items-center space-x-2">
