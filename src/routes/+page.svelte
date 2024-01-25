@@ -8,12 +8,16 @@
     import ImagePreview from '$lib/components/ImagePreview.svelte'
 </script>
 
-<div class="absolute flex w-full h-full !overscroll-none">
+<div class="absolute flex w-full h-full">
     <Sidebar />
 
-    <div class="relative flex-row md:flex-col w-full h-full justify-center items-center">
-        <div class="flex-row lg:flex-col place-content-center items-center w-full xl:columns-2">
-            <div class="flex-col w-full justify-between columns-1 h-full">
+    <div class="relative flex-row lg:flex-col w-full h-screen justify-center items-center">
+        <div
+            class="flex-row md:flex-col place-content-center items-center w-full h-screen columns-1 {$imageURL
+                ? 'xl:columns-2'
+                : ''}"
+        >
+            <div class="flex-col w-full p-6 justify-between columns-1 xl:h-full">
                 <h1
                     class="text-3xl m-6 text-center lowercase underline underline-offset-4 decoration-2 decoration-solid"
                 >
@@ -27,13 +31,17 @@
                 {/if}
             </div>
 
-            <div class="flex-col m-6 columns-1 w-full h-full place-content-center">
-                <h1
-                    class="text-3xl text-center lowercase underline underline-offset-4 decoration-2 decoration-solid"
-                >
-                    {$selection}
-                </h1>
-            </div>
+            {#if $imageURL}
+                <div class="flex-col w-full p-6 justify-between columns-1 xl:h-full">
+                    <h1
+                        class="text-3xl m-6 text-center lowercase underline underline-offset-4 decoration-2 decoration-solid"
+                    >
+                        {$selection}
+                    </h1>
+
+                    <ImagePreview src={$imageURL} />
+                </div>
+            {/if}
         </div>
     </div>
 </div>
