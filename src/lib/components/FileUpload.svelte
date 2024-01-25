@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { imageURL } from '../../stores/image'
+
     function handleDrop(event: DragEvent) {
         if (!event?.dataTransfer) return
 
@@ -22,7 +24,7 @@
         reader.readAsDataURL(image)
         reader.onload = (e) => {
             const dataURL = e?.target?.result
-            console.log({ dataURL })
+            if (dataURL) imageURL.set(dataURL as string)
         }
     }
 </script>
