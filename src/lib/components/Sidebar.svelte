@@ -18,7 +18,7 @@
 </script>
 
 <aside
-    class="relative flex-col space-between place-content-center items-center min-w-56 w-1/5 xl:w-4 h-full bg-gray-800 text-gray-400 overflow-hidden overscroll-contain"
+    class="relative flex-col h-screen space-between place-content-center items-center min-w-56 w-1/5 xl:w-4 bg-gray-800 text-gray-400 overflow-hidden overscroll-contain"
 >
     <div
         class="absolute top-0 flex-col w-full place-content-center items-center pt-3 mb-2 bottom-2"
