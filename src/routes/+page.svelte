@@ -11,7 +11,9 @@
 <div class="absolute flex w-full h-full">
     <Sidebar />
 
-    <div class="relative flex-row lg:flex-col w-full h-screen justify-center items-center">
+    <div
+        class="relative flex-row lg:flex-col w-full h-screen justify-center items-center overflow-auto"
+    >
         <div
             class="flex-row md:flex-col place-content-center items-center w-full h-screen columns-1 {$imageURL
                 ? 'xl:columns-2'
@@ -25,7 +27,7 @@
                 </h1>
 
                 {#if $imageURL}
-                    <ImagePreview src={$imageURL} />
+                    <ImagePreview src={$imageURL} dynamic={false} effect={$selection} />
                 {:else}
                     <FileUpload />
                 {/if}
@@ -39,7 +41,7 @@
                         {$selection}
                     </h1>
 
-                    <ImagePreview src={$imageURL} />
+                    <ImagePreview src={$imageURL} dynamic={true} effect={$selection} />
                 </div>
             {/if}
         </div>

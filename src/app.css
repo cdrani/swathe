@@ -4,9 +4,345 @@
 
 @layer components {
     .selection {
-        color: theme('colors.black');
-        font-weight: theme('fontWeight.bold');
-        background-color: theme('colors.white');
-        border-radius: theme('borderRadius.md');
+        @apply font-bold text-black rounded-md bg-white;
+    }
+
+    .image {
+        @apply bg-center bg-cover;
+        background-image: var(--src);
+    }
+
+    .airbrush {
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: brightness(1.5) saturate(100) blur(5px) contrast(5);
+            mix-blend-mode: multiply;
+        }
+    }
+
+    .chalkboard {
+        background-image: var(--src), var(--src);
+        background-blend-mode: difference;
+        background-position:
+            calc(50% - 1px) calc(50% - 1px),
+            calc(50% + 1px) calc(50% + 1px);
+        filter: brightness(1.5) grayscale(1);
+    }
+
+    .collage {
+        background-image: var(--src), var(--src), var(--src), var(--src), var(--src), var(--src);
+        background-size: 200%, 80%, 60%, 50%, 40%, 100%;
+        background-position: 50%, 80%, 30%, 0;
+        background-blend-mode: overlay;
+        background-repeat: no-repeat;
+    }
+
+    .colored-chalkboard {
+        background-image: var(--src), var(--src), var(--src);
+        background-size: cover;
+        background-position:
+            calc(50% - 1px) calc(50% - 1px),
+            calc(50% + 1px) calc(50% + 1px),
+            center;
+        background-blend-mode: color, difference;
+        filter: brightness(2);
+    }
+
+    .colored-pencil {
+        position: relative;
+
+        &::before {
+            display: block;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            background: var(--src), var(--src);
+            background-blend-mode: difference;
+            background-position:
+                calc(50% - 1px) calc(50% - 1px),
+                calc(50% + 1px) calc(50% + 1px);
+            filter: brightness(2) invert(1) grayscale(1);
+
+            background-size: cover;
+            box-shadow: inset 0 0 0 1px black;
+        }
+
+        &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            background: inherit;
+            mix-blend-mode: color;
+
+            background-size: cover;
+            box-shadow: inset 0 0 0 1px black;
+        }
+    }
+
+    .emboss {
+        background-image: var(--src), var(--src), var(--src);
+        background-blend-mode: difference, screen;
+        background-position:
+            calc(50% - 1px) calc(50% - 1px),
+            calc(50% + 1px) calc(50% + 1px),
+            center;
+        filter: brightness(2) invert(1) grayscale(1);
+    }
+
+    .flannel {
+        background-image: var(--src), var(--src), var(--src);
+        background-position: center;
+        background-size:
+            100%,
+            100000% 100%,
+            100% 100000%;
+        background-blend-mode: overlay;
+    }
+
+    .hallucination {
+        position: relative;
+        overflow: hidden;
+        background-color: magenta;
+        background-blend-mode: screen;
+
+        &::before,
+        &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            mix-blend-mode: multiply;
+            transform: scale(1.05);
+        }
+
+        &::before {
+            background-color: yellow;
+            background-blend-mode: screen;
+            transform-origin: top left;
+        }
+
+        &::after {
+            background-color: cyan;
+            background-image: screen;
+            transform-origin: bottom right;
+        }
+    }
+
+    .infrared {
+        background-image: var(--src);
+        background-size: cover;
+        background-position: center;
+        filter: hue-rotate(180deg) saturate(2);
+    }
+
+    .low-ink-h {
+        background-image: var(--src), var(--src), var(--src);
+        background-size:
+            100% 100%,
+            10000% 100%;
+        background-blend-mode: screen, overlay;
+    }
+
+    .low-ink-v {
+        background-image: var(--src), var(--src), var(--src);
+        background-size:
+            100% 100%,
+            100% 1000%;
+        background-blend-mode: screen, overlay;
+    }
+
+    .mirror-h {
+        position: relative;
+        top: 0;
+        bottom: 0;
+
+        &::before {
+            display: block;
+            content: '';
+            position: absolute;
+            background: inherit;
+            left: 0;
+            right: 50%;
+            transform: scaleX(-1);
+            top: 0;
+            bottom: 0;
+        }
+
+        &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            background: inherit;
+            left: 50%;
+            right: 0;
+        }
+    }
+
+    .mirror-v {
+        position: relative;
+        top: 0;
+        bottom: 0;
+
+        &::before {
+            display: block;
+            content: '';
+            position: absolute;
+            background: inherit;
+            left: 0;
+            right: 50%;
+            top: 0;
+            bottom: 50%;
+            transform: scaleY(-1);
+        }
+
+        &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            background: inherit;
+            left: 50%;
+            right: 0;
+            top: 50%;
+            bottom: 0;
+        }
+    }
+
+    .mosaic {
+        background-image: var(--src), var(--src);
+        background-size:
+            cover,
+            5% 5%;
+        background-position: center;
+        background-blend-mode: overlay;
+    }
+
+    .night-vision {
+        background-image: var(--src), radial-gradient(#0f0, #000),
+            repeating-linear-gradient(transparent 0, rgba(0, 0, 0, 0.1) 2.5px, transparent 5px);
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: overlay;
+    }
+
+    .pencil {
+        background-blend-mode: difference;
+        background-image: var(--src), var(--src);
+        background-position:
+            calc(50% - 1px) calc(50% - 1px),
+            calc(50% + 1px) calc(50% + 1px);
+        box-shadow: inset 0 0 0 1px black;
+        filter: brightness(2) invert(1) grayscale(1);
+    }
+
+    .photo-border {
+        background-image: var(--src), var(--src);
+        background-position: center;
+        background-size: 60%, 20%;
+        background-repeat: no-repeat, repeat;
+    }
+
+    .selective-color {
+        position: relative;
+        &::before {
+            display: block;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            background: inherit;
+            background-color: red;
+            background-blend-mode: screen;
+            mix-blend-mode: color;
+            filter: brightness(3);
+        }
+
+        &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            background: inherit;
+            background-color: red;
+            background-blend-mode: screen;
+            mix-blend-mode: color;
+            filter: brightness(3);
+        }
+    }
+
+    .warhol {
+        background-image: linear-gradient(#14ebff 0, #14ebff 50%, #ffff70 50%, #ffff70 100%),
+            linear-gradient(#ff85da 0, #ff85da 50%, #aaa 50%, #aaa 100%), var(--src);
+        background-size:
+            50% 100%,
+            50% 100%,
+            50% 50%;
+        background-position:
+            top left,
+            top right;
+        background-repeat: no-repeat, no-repeat, repeat;
+        background-blend-mode: color;
+    }
+
+    .watercolor {
+        position: relative;
+
+        &::before,
+        &::after {
+            background-size: cover;
+            bottom: 0;
+            content: '';
+            display: block;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        &::after {
+            background-image: var(--src);
+            background-position: center;
+            mix-blend-mode: multiply;
+            filter: brightness(1.3) blur(2px) contrast(2);
+        }
+
+        &::before {
+            background-image: var(--src), var(--src);
+            background-blend-mode: difference;
+            background-position:
+                calc(50% - 1px) calc(50% - 1px),
+                calc(50% + 1px) calc(50% + 1px);
+            filter: brightness(2) invert(1) grayscale(1);
+            box-shadow: inset 0 0 0 1px black;
+        }
     }
 }
