@@ -4,7 +4,4 @@
     export let dynamic: boolean = false
 </script>
 
-<div
-    style="--src: url({src});"
-    class="flex w-full aspect-square image {dynamic ? effect : ''}"
-></div>
+<div style="--src: url({src});" class="image {dynamic ? effect : ''}"></div>
