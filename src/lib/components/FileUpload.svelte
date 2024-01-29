@@ -29,14 +29,14 @@
     }
 </script>
 
-<div class="relative flex items-center w-full min-h-48 lg:h-5/6">
+<div class="relative grid grid-cols-6 grid-rows-5 mx-auto w-full h-full place-content-center">
     <section
         aria-label="upload"
         on:dragover|preventDefault
         on:drop|preventDefault={handleDrop}
-        class="flex w-5/6 min-h-48 lg:h-1/2 items-center place-content-center justify-self-center transition bg-white border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 focus:outline-none mx-auto"
+        class="col-start-2 col-span-4 row-start-2 row-span-4 w-full h-2/3 place-content-center transition bg-white border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 focus:outline-none"
     >
-        <label class="flex justify-center cursor-pointer">
+        <label class="flex w-full h-full p-4 items-center place-content-center cursor-pointer">
             <span class="flex items-center space-x-2">
                 <svg
                     fill="none"
@@ -52,8 +52,8 @@
                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                     />
                 </svg>
-                <span class="font-medium text-gray-600">
-                    Drop files to Attach, or
+                <span class="text-lg md:text-xl lg:text-2xl text-center font-medium text-gray-600">
+                    Drop file to Attach, or
                     <span class="text-blue-600 underline">browse</span>
                 </span>
             </span>
