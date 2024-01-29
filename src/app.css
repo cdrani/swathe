@@ -8,7 +8,7 @@
     }
 
     .image {
-        @apply bg-center bg-cover;
+        @apply w-full aspect-video bg-cover;
         background-image: var(--src);
     }
 

@@ -55,6 +55,8 @@
         },
         "windows": [
             {
+                "minWidth": 800,
+                "minHeight": 600,
                 "fullscreen": false,
                 "height": 600,
                 "resizable": true,

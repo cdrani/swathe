@@ -1,49 +1,28 @@
 <script lang="ts">
     import '../app.css'
 
+    import { view } from '../stores/view'
     import { imageURL } from '../stores/image'
     import { selection } from '../stores/effect'
+
+    import Gallery from '$lib/views/Gallery.svelte'
+    import Preview from '$lib/views/Preview.svelte'
     import Sidebar from '$lib/components/Sidebar.svelte'
     import FileUpload from '$lib/components/FileUpload.svelte'
-    import ImagePreview from '$lib/components/ImagePreview.svelte'
 </script>
 
-<div class="absolute flex w-full h-full">
+<div class="flex w-full h-dvh">
     <Sidebar />
 
-    <div
-        class="relative flex-row lg:flex-col w-full h-screen justify-center items-center overflow-auto"
-    >
-        <div
-            class="flex-row md:flex-col place-content-center items-center w-full h-screen columns-1 {$imageURL
-                ? 'xl:columns-2'
-                : ''}"
-        >
-            <div class="flex-col w-full p-6 justify-between columns-1 xl:h-full">
-                <h1
-                    class="text-3xl m-6 text-center lowercase underline underline-offset-4 decoration-2 decoration-solid"
-                >
-                    Original
-                </h1>
-
-                {#if $imageURL}
-                    <ImagePreview src={$imageURL} dynamic={false} effect={$selection} />
-                {:else}
-                    <FileUpload />
-                {/if}
-            </div>
-
-            {#if $imageURL}
-                <div class="flex-col w-full p-6 justify-between columns-1 xl:h-full">
-                    <h1
-                        class="text-3xl m-6 text-center lowercase underline underline-offset-4 decoration-2 decoration-solid"
-                    >
-                        {$selection}
-                    </h1>
-
-                    <ImagePreview src={$imageURL} dynamic={true} effect={$selection} />
-                </div>
+    {#if !$imageURL}
+        <FileUpload />
+    {:else}
+        <div class="flex w-11/12 h-full overflow-y-auto lg:place-content-center">
+            {#if $view == 'gallery'}
+                <Gallery src={$imageURL} />
+            {:else}
+                <Preview src={$imageURL} effect={$selection} />
             {/if}
         </div>
-    </div>
+    {/if}
 </div>
