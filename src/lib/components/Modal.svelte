@@ -25,7 +25,7 @@
         : 'hidden overflow-y-auto'} z-20 inset-0 bg-gray-900 bg-opacity-75 w-full content-center place-content-center"
 >
     <div
-        class="relative top-1/2 -translate-y-1/2 z-[10000] h-full md:max-w-4xl xl:max-w-7xl mx-auto content-center place-content-center bg-white h-fit shadow-xl rounded-lg"
+        class="relative top-1/2 -translate-y-1/2 z-50 w-4/5 mx-auto content-center place-content-center bg-white h-fit shadow-xl rounded-lg"
     >
         <div
             class="flex w-full h-full content-center place-content-center mx-auto relative p-10 border rounded-lg"
