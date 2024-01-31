@@ -7,17 +7,19 @@
 
     import Gallery from '$lib/views/Gallery.svelte'
     import Preview from '$lib/views/Preview.svelte'
+    import Modal from '$lib/components/Modal.svelte'
     import Sidebar from '$lib/components/Sidebar.svelte'
     import FileUpload from '$lib/components/FileUpload.svelte'
 </script>
 
-<div class="flex w-full h-dvh">
+<div class="flex w-full h-dvh absolute">
     <Sidebar />
 
     {#if !$imageURL}
         <FileUpload />
     {:else}
-        <div class="flex w-11/12 h-full overflow-y-auto lg:place-content-center">
+        <Modal src={$imageURL} />
+        <div class="flex mx-auto w-full h-full overflow-y-auto lg:place-content-center">
             {#if $view == 'gallery'}
                 <Gallery src={$imageURL} />
             {:else}

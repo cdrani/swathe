@@ -11,7 +11,6 @@
 
     onMount(() => {
         const currentEffect = $selection
-
         const selectedElement = document.getElementById(currentEffect)
         selectedElement?.scrollIntoView()
     })
@@ -27,9 +26,9 @@
         <hr class="w-full" />
     </div>
 
-    <section class="absolute left-0 top-12 bottom-0 bg-gray-800 w-full py-5">
+    <section class="absolute left-0 top-12 bottom-0 bg-gray-800 w-full">
         <ul
-            class="flex flex-col items-center w-full h-full scroll-smooth overflow-auto overscroll-contain"
+            class="flex flex-col items-center w-full h-full py-6 scroll-smooth overflow-auto overscroll-contain"
         >
             {#each effectsList as effect (effect)}
                 <li

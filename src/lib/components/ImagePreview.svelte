@@ -1,7 +1,34 @@
 <script lang="ts">
     export let src: string = ''
     export let effect: string = ''
-    export let dynamic: boolean = false
+    import { modal } from '../../stores/modal'
+
+    function openModal(e: MouseEvent) {
+        const target = e.target as HTMLButtonElement
+        const modalEffect = getEffect(target)
+        modal.set({ effect: modalEffect, visible: true })
+    }
+
+    function getEffect(target: HTMLButtonElement) {
+        const effect = target?.getAttribute('aria-label')
+        return effect ?? 'none'
+    }
 </script>
 
-<div style="--src: url({src});" class="image {dynamic ? effect : ''}"></div>
+<div style="--src: url({src})" class="image {effect}">
+    <button
+        aria-label={effect}
+        on:click|stopPropagation={openModal}
+        class="relative z-10 cursor-pointer float-right fill-gray-300"
+    >
+        <svg
+            viewBox="0 0 448 512"
+            class="relative -z-10 w-5 h-5 md:w-6 md:h-6"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="m0 180v-124c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-84v84c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12zm288-136v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12v-124c0-13.3-10.7-24-24-24h-124c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24v-124c0-6.6-5.4-12-12-12zm-276 148v-40c0-6.6-5.4-12-12-12h-84v-84c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"
+            />
+        </svg>
+    </button>
+</div>
