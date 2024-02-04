@@ -1,10 +1,11 @@
 {
     "$schema": "../node_modules/@tauri-apps/cli/schema.json",
     "build": {
-        "beforeBuildCommand": "pnpm run build",
-        "beforeDevCommand": "pnpm run dev",
+        "beforeBuildCommand": "pnpm build",
+        "beforeDevCommand": "pnpm dev",
         "devPath": "http://localhost:5173",
-        "distDir": "../build"
+        "distDir": "../build",
+        "withGlobalTauri": false
     },
     "package": {
         "productName": "swathe",
@@ -12,7 +13,16 @@
     },
     "tauri": {
         "allowlist": {
-            "all": false
+            "all": false,
+            "dialog": {
+                "save": true
+            },
+            "path": {
+                "all": true
+            },
+            "fs": {
+                "writeFile": true
+            }
         },
         "bundle": {
             "active": true,
@@ -29,7 +39,7 @@
                 "icons/icon.icns",
                 "icons/icon.ico"
             ],
-            "identifier": "com.tauri.dev",
+            "identifier": "com.swathe.app",
             "longDescription": "",
             "macOS": {
                 "entitlements": null,
