@@ -17,16 +17,14 @@
 </script>
 
 <aside
-    class="relative flex-col h-screen space-between place-content-center items-center min-w-56 w-1/5 xl:w-4 bg-gray-800 text-gray-400 overflow-hidden overscroll-contain"
+    class="relative flex-col h-dvh space-between place-content-center items-center min-w-56 w-1/5 xl:w-4 bg-gray-800 text-gray-400 overflow-hidden overscroll-contain"
 >
-    <div
-        class="absolute top-0 flex-col w-full place-content-center items-center pt-3 mb-2 bottom-2"
-    >
+    <div class="absolute top-0 flex-col w-full items-center pt-3 mb-2 bottom-2">
         <h2 class="text-2xl text-center lowercase tracking-[16px]">Swathe</h2>
         <hr class="w-full" />
     </div>
 
-    <section class="absolute left-0 top-12 bottom-0 bg-gray-800 w-full">
+    <section class="absolute left-0 top-12 bottom-0 bg-gray-800 w-full pt-3">
         <ul
             class="flex flex-col items-center w-full h-full py-6 scroll-smooth overflow-auto overscroll-contain"
         >
