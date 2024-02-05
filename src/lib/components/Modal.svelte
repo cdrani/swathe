@@ -29,7 +29,7 @@
         : 'hidden overflow-y-auto'} z-20 inset-0 bg-gray-900 bg-opacity-80 flex w-full content-center place-content-center"
 >
     <div
-        class="absolute top-1/2 -translate-y-1/2 z-50 w-11/12 max-w-screen-xl bg-transparent h-full"
+        class="absolute top-1/2 -translate-y-1/2 z-50 w-11/12 xl:w-full max-w-screen-xl px-10 xl:max-w-screen-2xl bg-transparent h-full"
     >
         <div class="relative top-1/2 -translate-y-1/2 flex w-full">
             <div class="absolute -top-14 -right-0 flex z-20">

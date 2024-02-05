@@ -29,7 +29,7 @@
     }
 </script>
 
-<div class="relative grid grid-cols-6 grid-rows-5 mx-auto w-full h-full place-content-center">
+<div class="relative bg-white overflow-auto grid grid-cols-6 grid-rows-5 mx-auto w-full h-screen place-content-center">
     <section
         aria-label="upload"
         on:dragover|preventDefault
@@ -53,7 +53,7 @@
                     />
                 </svg>
                 <span class="text-lg md:text-xl lg:text-2xl text-center font-medium text-gray-600">
-                    Drop file to Attach, or
+                    Drop file to Upload, or
                     <span class="text-blue-600 underline">browse</span>
                 </span>
             </span>
