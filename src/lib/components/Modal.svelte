@@ -74,12 +74,12 @@
                 <button
                     type="button"
                     on:click={downloadImage}
-                    class="inline-flex items-center mr-4"
+                    class="inline-flex place-content-center p-2 mr-4 bg-gray-600 w-10"
                 >
                     <svg
                         viewBox="0 0 16 16"
                         xmlns="http://www.w3.org/2000/svg"
-                        class="fill-gray-400 w-5 h-5 md:w-6 md:h-6"
+                        class="fill-gray-200 w-5 h-5 md:w-6 md:h-6"
                     >
                         <path d="m0 0h16v16h-16z" fill="none" />
                         <path
@@ -88,11 +88,11 @@
                     </svg>
                 </button>
 
-                <button type="button" on:click={closeModal} class="inline-flex items-center">
+                <button type="button" on:click={closeModal} class="inline-flex place-content-center p-2 bg-gray-600 w-10">
                     <svg
                         viewBox="0 0 448 512"
                         xmlns="http://www.w3.org/2000/svg"
-                        class="fill-gray-400 w-6 h-6 md:w-7 md:h-7"
+                        class="fill-gray-200 w-5 h-5 md:w-6 md:h-6"
                     >
                         <path
                             d="m436 192h-124c-13.3 0-24-10.7-24-24v-124c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24v-124c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300v-124c0-13.3-10.7-24-24-24h-124c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-124c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"
