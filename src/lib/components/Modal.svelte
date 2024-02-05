@@ -36,13 +36,7 @@
         }
     }
 
-    function toggleButtonsView() {
-        const buttons = document.getElementById('buttons')
-        buttons?.classList?.toggle('hidden')
-    }
-
     async function downloadImage() {
-        toggleButtonsView()
         const dimensions = getCoords()
         if (!dimensions) return
 
@@ -51,7 +45,6 @@
 
         setTimeout(async () => {
             await invoke('flickr', { file_path, dims: dimensions })
-            toggleButtonsView()
         }, 500)
     }
 </script>
@@ -67,19 +60,19 @@
         : 'hidden overflow-y-auto'} z-20 inset-0 bg-gray-900 bg-opacity-80 flex w-full content-center place-content-center"
 >
     <div
-        class="absolute top-1/2 -translate-y-1/2 z-50 w-11/12 max-w-screen-xl bg-transparent h-full shadow-xl"
+        class="absolute top-1/2 -translate-y-1/2 z-50 w-11/12 max-w-screen-xl bg-transparent h-full"
     >
         <div class="relative top-1/2 -translate-y-1/2 flex w-full">
-            <div id="buttons" class="absolute -right-0 flex z-20 m-2">
+            <div class="absolute -top-14 -right-0 flex z-20">
                 <button
                     type="button"
                     on:click={downloadImage}
-                    class="inline-flex place-content-center p-2 mr-4 bg-gray-600 w-10"
+                    class="inline-flex place-content-center p-2 mr-4 bg-gray-900 w-10"
                 >
                     <svg
                         viewBox="0 0 16 16"
                         xmlns="http://www.w3.org/2000/svg"
-                        class="fill-gray-200 w-5 h-5 md:w-6 md:h-6"
+                        class="fill-gray-400 w-5 h-5 md:w-6 md:h-6"
                     >
                         <path d="m0 0h16v16h-16z" fill="none" />
                         <path
@@ -88,11 +81,15 @@
                     </svg>
                 </button>
 
-                <button type="button" on:click={closeModal} class="inline-flex place-content-center p-2 bg-gray-600 w-10">
+                <button
+                    type="button"
+                    on:click={closeModal}
+                    class="inline-flex place-content-center p-2 bg-gray-900 w-10"
+                >
                     <svg
                         viewBox="0 0 448 512"
                         xmlns="http://www.w3.org/2000/svg"
-                        class="fill-gray-200 w-5 h-5 md:w-6 md:h-6"
+                        class="fill-gray-400 w-5 h-5 md:w-6 md:h-6"
                     >
                         <path
                             d="m436 192h-124c-13.3 0-24-10.7-24-24v-124c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24v-124c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300v-124c0-13.3-10.7-24-24-24h-124c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-124c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"
