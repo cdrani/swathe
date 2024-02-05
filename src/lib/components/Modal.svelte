@@ -1,4 +1,7 @@
 <script lang="ts">
+    import { invoke } from '@tauri-apps/api/tauri'
+    import { join, downloadDir } from '@tauri-apps/api/path'
+
     import { modal } from '../../stores/modal'
 
     export let src: string = ''
@@ -11,6 +14,45 @@
         if (!$modal.visible) return
         if (!['Esc', 'Escape'].includes(evt.key)) return
         closeModal()
+    }
+
+    function parseNum(num: number) {
+        return parseInt(`${num}`, 10)
+    }
+
+    function getCoords() {
+        const bgImage = document.getElementById('effect')
+        if (!bgImage) return
+
+        const offsets = bgImage?.getBoundingClientRect()
+        if (!offsets) return
+
+        const { left, top, width, height } = offsets
+        return {
+            width: parseNum(width),
+            height: parseNum(height),
+            left: parseNum(left),
+            top: parseNum(top)
+        }
+    }
+
+    function toggleButtonsView() {
+        const buttons = document.getElementById('buttons')
+        buttons?.classList?.toggle('hidden')
+    }
+
+    async function downloadImage() {
+        toggleButtonsView()
+        const dimensions = getCoords()
+        if (!dimensions) return
+
+        const folder = await downloadDir()
+        const file_path = await join(folder, 'screenshot.png')
+
+        setTimeout(async () => {
+            await invoke('flickr', { file_path, dims: dimensions })
+            toggleButtonsView()
+        }, 500)
     }
 </script>
 
