@@ -16,6 +16,9 @@
         "*.{js,ts,svelte}": "eslint --fix --cache --cache-location ./node_modules/.cache/.eslintcache",
         "*.{js,ts,css,md,svelte,json}": "prettier --write"
     },
+    "dependencies": {
+        "@tauri-apps/api": "^1.5.3"
+    },
     "devDependencies": {
         "@sveltejs/adapter-auto": "^3.0.0",
         "@sveltejs/adapter-static": "^3.0.1",
