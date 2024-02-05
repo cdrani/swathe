@@ -11,7 +11,9 @@
 >
     {#each effectsList as effect (`grid-${effect}`)}
         <div class="container">
-            <ViewActionButtons small {effect} />
+            <div class="flex justify-end">
+                <ViewActionButtons small {effect} />
+            </div>
             <ImagePreview {effect} {src} />
         </div>
     {/each}
