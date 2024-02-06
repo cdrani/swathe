@@ -16,16 +16,16 @@
     <div class="relative flex w-full h-screen max-w-screen-2xl">
         <Sidebar />
 
-            {#if !$imageURL}
-                <FileUpload />
+        {#if !$imageURL}
+            <FileUpload />
+        {:else}
+            <Modal src={$imageURL} />
+            {#if $view == 'gallery'}
+                <Gallery src={$imageURL} />
             {:else}
-                <Modal src={$imageURL} />
-                {#if $view == 'gallery'}
-                    <Gallery src={$imageURL} />
-                {:else}
-                    <Preview src={$imageURL} effect={$selection} />
-                {/if}
+                <Preview src={$imageURL} effect={$selection} />
             {/if}
+        {/if}
     </div>
 </div>
 
