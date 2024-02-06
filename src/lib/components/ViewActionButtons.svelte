@@ -6,7 +6,7 @@
     export let effect: string = ''
     export let small: boolean = false
 
-    const wh = small ? 7 : 9 
+    const wh = small ? 5 : 5 
 
     function parseNum(num: number) {
         return parseInt(`${num}`, 10)
@@ -57,16 +57,16 @@
     $: visible = $modal.visible
 </script>
 
-<div class="relative flex items-center justify-center mb-2">
+<div class="relative flex items-center justify-end w-full h-{wh + 1} mb-1.5">
     <button
         type="button"
         on:click={downloadImage}
-        class="inline-flex items-center p-{small ? 1 :2} bg-gray-800 aspect-square w-{wh} mr-2"
+        class="inline-flex items-center p-{small ? 1 : 2} bg-gray-800 w-{wh * 2} mr-2"
     >
         <svg
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
-            class="fill-white w-{wh - (small ? 2 : 3)} h-{wh - (small ? 2 : 3)}"
+            class="fill-white w-{wh} h-{wh}"
         >
             <path d="m0 0h16v16h-16z" fill="none" />
             <path
@@ -78,13 +78,13 @@
     <button
         aria-label={effect}
         on:click|stopPropagation={openModal}
-        class="inline-flex items-center place-content-center p-{small ? 1 : 2} bg-gray-800 aspect-square w-{wh}"
+        class="inline-flex items-center p-{small ? 1 : 2} bg-gray-800 w-{wh * 2}"
         class:hidden={visible}
     >
         <svg
             viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
-            class="fill-white w-{wh - (small ? 2 : 3)} h-{wh - (small ? 2 : 3)}"
+            class="fill-white w-{wh} h-{wh}"
 
         >
             <path
@@ -96,13 +96,13 @@
     <button
         type="button"
         on:click={closeModal}
-        class="inline-flex place-content-center p-{small ? 1 : 2} bg-gray-800 aspect-square w-{wh}"
+        class="inline-flex items-center p-{small ? 1 : 2} bg-gray-800 w-{wh * 2}"
         class:hidden={!visible}
     >
         <svg
             viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
-            class="fill-white w-{wh - 3} h-{wh - 3}"
+            class="fill-white w-{wh} h-{wh}"
         >
             <path
                 d="m436 192h-124c-13.3 0-24-10.7-24-24v-124c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24v-124c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300v-124c0-13.3-10.7-24-24-24h-124c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-124c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"
