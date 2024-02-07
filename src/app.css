@@ -7,6 +7,14 @@
         @apply font-bold text-black rounded-md bg-white;
     }
 
+    .setting-v {
+        @apply h-36 w-12 justify-start;
+    }
+
+    .setting-h {
+        @apply h-12 w-36 justify-center;
+    }
+
     .image {
         @apply w-full aspect-video bg-cover;
         background-image: var(--src);
