@@ -7,13 +7,11 @@
 </script>
 
 <div
-    class="overflow-auto bg-white relative w-full h-screen p-4 md:p-6 lg:p-8 xl:p-12 grid place-content-start grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6"
+    class="bg-white w-full p-4 md:p-6 md:ml-6 lg:p-8 xl:p-12 grid place-content-start grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 lg:gap-6"
 >
     {#each effectsList as effect (`grid-${effect}`)}
-        <div class="container">
-            <div class="flex justify-end">
-                <ViewActionButtons small {effect} />
-            </div>
+        <div class="flex-col justify-between content-center">
+            <ViewActionButtons small {effect} />
             <ImagePreview {effect} {src} />
         </div>
     {/each}

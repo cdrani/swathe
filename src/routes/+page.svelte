@@ -10,27 +10,35 @@
     import Modal from '$lib/components/Modal.svelte'
     import Sidebar from '$lib/components/Sidebar.svelte'
     import FileUpload from '$lib/components/FileUpload.svelte'
+    import Settings from '$lib/components/Settings.svelte'
 </script>
 
-<div class="absolute flex content-center w-full mx-auto max-h-screen place-content-center">
-    <div class="relative flex w-full h-screen max-w-screen-2xl">
-        <Sidebar />
+<div class="mx-auto max-w-[90rem] h-screen">
+    <div class="relative flex flex-1 w-full overflow-hidden">
+        <div class="absolute inset-0 right-auto left-0 bg-gray-800 w-44 md:w-48 p-4">
+            <Sidebar />
+        </div>
 
-            {#if !$imageURL}
-                <FileUpload />
-            {:else}
-                <Modal src={$imageURL} />
-                {#if $view == 'gallery'}
-                    <Gallery src={$imageURL} />
+        <div class="min-h-screen bg-white relative flex flex-1 ml-[16rem] w-full overflow-y-auto">
+            <Settings vertical={$view == 'gallery'} />
+            <main class="flex flex-1 bg-white">
+                {#if !$imageURL}
+                    <FileUpload />
                 {:else}
-                    <Preview src={$imageURL} effect={$selection} />
+                    <Modal src={$imageURL} />
+                    {#if $view == 'gallery'}
+                        <Gallery src={$imageURL} />
+                    {:else}
+                        <Preview src={$imageURL} effect={$selection} />
+                    {/if}
                 {/if}
-            {/if}
+            </main>
+        </div>
     </div>
 </div>
 
 <style lang="postcss">
     :global(body) {
-        @apply overflow-hidden bg-gray-800;
+        @apply bg-gray-800;
     }
 </style>

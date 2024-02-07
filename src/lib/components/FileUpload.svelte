@@ -29,7 +29,9 @@
     }
 </script>
 
-<div class="relative bg-white overflow-auto grid grid-cols-6 grid-rows-5 mx-auto w-full h-screen place-content-center">
+<div
+    class="relative bg-white overflow-auto grid grid-cols-6 grid-rows-5 mx-auto w-full h-screen place-content-center"
+>
     <section
         aria-label="upload"
         on:dragover|preventDefault
