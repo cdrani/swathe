@@ -2,7 +2,7 @@
     import '../app.css'
 
     import { view } from '../stores/view'
-    import { imageURL } from '../stores/image'
+    import { imageData } from '../stores/image'
     import { selection } from '../stores/effect'
 
     import Gallery from '$lib/views/Gallery.svelte'
@@ -21,7 +21,7 @@
             <Sidebar />
         </div>
 
-        <div class="min-h-screen bg-white relative flex flex-1 ml-[16rem] w-full overflow-y-auto">
+        <div class="bg-white relative flex flex-1 ml-[16rem] w-full overflow-y-auto">
             <Settings vertical={$view == 'gallery'} />
             <main class="flex flex-1 bg-white">
                 {#if !src}
