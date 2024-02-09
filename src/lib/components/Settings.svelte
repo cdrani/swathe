@@ -1,12 +1,12 @@
 <script lang="ts">
     import { view } from '../../stores/view'
-    import { imageURL } from '../../stores/image'
+    import { imageData } from '../../stores/image'
     import { selection } from '../../stores/effect'
 
     export let vertical: boolean = false
 
     function clearFile() {
-        imageURL.set({})
+        imageData.set({})
         selection.set('none')
     }
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { imageURL } from '../../stores/image'
+    import { imageData } from '../../stores/image'
 
     function handleDrop(event: DragEvent) {
         if (!event?.dataTransfer) return
@@ -37,7 +37,7 @@
         const name = image.name.split(/.png|.jpeg|.jpg/).at(0)
         const optimage = await compressImage(image, 50)
 
-        imageURL.set({ name, src: optimage })
+        imageData.set({ name, src: optimage })
     }
 </script>
 

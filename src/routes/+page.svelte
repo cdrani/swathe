@@ -12,7 +12,7 @@
     import FileUpload from '$lib/components/FileUpload.svelte'
     import Settings from '$lib/components/Settings.svelte'
 
-    $: src = $imageURL?.src
+    $: src = $imageData?.src
 </script>
 
 <div class="mx-auto max-w-[90rem] h-screen">
