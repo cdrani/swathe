@@ -11,6 +11,8 @@
     import Sidebar from '$lib/components/Sidebar.svelte'
     import FileUpload from '$lib/components/FileUpload.svelte'
     import Settings from '$lib/components/Settings.svelte'
+
+    $: src = $imageURL?.src
 </script>
 
 <div class="mx-auto max-w-[90rem] h-screen">
@@ -22,14 +24,14 @@
         <div class="min-h-screen bg-white relative flex flex-1 ml-[16rem] w-full overflow-y-auto">
             <Settings vertical={$view == 'gallery'} />
             <main class="flex flex-1 bg-white">
-                {#if !$imageURL}
+                {#if !src}
                     <FileUpload />
                 {:else}
-                    <Modal src={$imageURL} />
+                    <Modal {src} />
                     {#if $view == 'gallery'}
-                        <Gallery src={$imageURL} />
+                        <Gallery {src} />
                     {:else}
-                        <Preview src={$imageURL} effect={$selection} />
+                        <Preview {src} effect={$selection} />
                     {/if}
                 {/if}
             </main>
