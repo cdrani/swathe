@@ -1,12 +1,12 @@
 <script lang="ts">
     import { view } from '../../stores/view'
-    import { imageURL } from '../../stores/image'
+    import { imageData } from '../../stores/image'
     import { selection } from '../../stores/effect'
 
     export let vertical: boolean = false
 
     function clearFile() {
-        imageURL.set('')
+        imageData.set({})
         selection.set('none')
     }
 
@@ -15,21 +15,11 @@
     }
 
     $: dir = vertical ? 'col' : 'row'
-    $: space = vertical ? 'y' : 'x'
 </script>
 
-<div
-    class="flex absolute clear-right left-2"
-    class:setting-h={!vertical}
-    class:setting-v={vertical}
->
-    <div
-        class="fixed top-6 flex flex-{dir} content-center justify-between space-{space}-2 items-center h-fit"
-    >
-        <button
-            on:click|preventDefault={clearFile}
-            class="inline-flex rounded-full place-content-center justify-end"
-        >
+<div class="absolute left-1 lg:left-3 xl:left-4">
+    <div class="fixed top-6 flex flex-{dir}" class:setting-h={!vertical} class:setting-v={vertical}>
+        <button on:click|preventDefault={clearFile} class="inline-flex place-content-center">
             <svg
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
@@ -42,10 +32,7 @@
             </svg>
         </button>
 
-        <button
-            on:click={() => setView('gallery')}
-            class="inline-flex rounded-full place-content-center justify-end"
-        >
+        <button on:click={() => setView('gallery')} class="inline-flex place-content-center">
             <svg
                 viewBox="-50 -50 500 500"
                 xmlns="http://www.w3.org/2000/svg"
@@ -57,10 +44,7 @@
             </svg>
         </button>
 
-        <button
-            on:click={() => setView('preview')}
-            class="inline-flex rounded-full place-content-center justify-end"
-        >
+        <button on:click={() => setView('preview')} class="inline-flex place-content-center">
             <svg
                 viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +53,6 @@
                 <path
                     fill="white"
                     d="M36,416H476a20.023,20.023,0,0,0,20-20V116a20.023,20.023,0,0,0-20-20H36a20.023,20.023,0,0,0-20,20V396A20.023,20.023,0,0,0,36,416ZM48,128H464V384H48Z"
-                    class="ci-primary"
                 />
             </svg>
         </button>

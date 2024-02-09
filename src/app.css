@@ -7,17 +7,33 @@
         @apply font-bold text-black rounded-md bg-white;
     }
 
+    .small {
+        @apply fill-white aspect-video scale-150 min-w-5 lg:min-w-5;
+    }
+
+    .big {
+        @apply fill-white aspect-square scale-100 min-w-6 lg:min-w-8 scale-75;
+    }
+
+    .outline {
+        @apply border-2 border-white;
+    }
+
     .setting-v {
-        @apply h-36 w-12 justify-start;
+        @apply h-28 w-10 justify-between space-y-2;
     }
 
     .setting-h {
-        @apply h-12 w-36 justify-center;
+        @apply h-10 w-28 justify-between space-x-2 lg:space-x-3;
     }
 
     .image {
         @apply w-full aspect-video bg-cover;
         background-image: var(--src);
+    }
+
+    .none {
+        @apply bg-clip-content;
     }
 
     .airbrush {

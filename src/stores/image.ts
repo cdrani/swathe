@@ -1,3 +1,4 @@
 import { writable } from 'svelte/store'
 
-export const imageURL = writable<string | null>(null)
+const INIT_STATE: { name?: string; src?: string } = {}
+export const imageData = writable(INIT_STATE)

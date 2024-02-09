@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { imageURL } from '../../stores/image'
+    import { imageData } from '../../stores/image'
 
     function handleDrop(event: DragEvent) {
         if (!event?.dataTransfer) return
@@ -7,7 +7,7 @@
         const image = event.dataTransfer.files[0]
         if (!image) return
 
-        readFile(image)
+        setImageData(image)
     }
 
     function handleFile(e: Event) {
@@ -16,16 +16,28 @@
 
         if (!image) return
 
-        readFile(image)
+        setImageData(image)
     }
 
-    function readFile(image: File) {
-        const reader = new FileReader()
-        reader.readAsDataURL(image)
-        reader.onload = (e) => {
-            const dataURL = e?.target?.result
-            if (dataURL) imageURL.set(dataURL as string)
-        }
+    async function compressImage(imgBlob: File, percent: number) {
+        const bitmap = await createImageBitmap(imgBlob)
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+
+        canvas.width = bitmap.width
+        canvas.height = bitmap.height
+
+        ctx?.drawImage(bitmap, 0, 0)
+
+        const dataUrl = canvas.toDataURL('image/jpeg', percent / 100)
+        return dataUrl
+    }
+
+    async function setImageData(image: File) {
+        const name = image.name.split(/.png|.jpeg|.jpg/).at(0)
+        const optimage = await compressImage(image, 50)
+
+        imageData.set({ name, src: optimage })
     }
 </script>
 
