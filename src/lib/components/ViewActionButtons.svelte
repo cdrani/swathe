@@ -2,6 +2,7 @@
     import { invoke } from '@tauri-apps/api/tauri'
     import { join, downloadDir } from '@tauri-apps/api/path'
     import { modal } from '../../stores/modal'
+    import { imageData } from '../../stores/image'
 
     export let effect: string = ''
     export let small: boolean = false
@@ -39,7 +40,8 @@
         if (!dimensions) return
 
         const folder = await downloadDir()
-        const file_path = await join(folder, 'screenshot.png')
+        const fileName = `${$imageData.name}.png`
+        const file_path = await join(folder, fileName)
 
         setTimeout(async () => {
             await invoke('flickr', { file_path, dims: dimensions })
