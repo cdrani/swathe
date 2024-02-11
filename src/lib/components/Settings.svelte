@@ -1,5 +1,6 @@
 <script lang="ts">
     import { view } from '../../stores/view'
+    import type { View } from '../../stores/view'
     import { imageData } from '../../stores/image'
     import { selection } from '../../stores/effect'
 
@@ -10,7 +11,7 @@
         selection.set('none')
     }
 
-    function setView(newView: 'preview' | 'gallery' | 'comparison') {
+    function setView(newView: View) {
         view.set(newView)
     }
 
@@ -57,9 +58,9 @@
             </svg>
         </button>
 
-        <button on:click={() => setView('comparison')} class="inline-flex place-items-center">
+        <button on:click={() => setView('comparison')} class="inline-flex place-content-center">
             <svg
-                viewBox="0 0 21 20"
+                viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
                 class="fill-white w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 bg-gray-800 p-1 rounded-md"
             >
