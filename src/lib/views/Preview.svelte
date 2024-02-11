@@ -6,7 +6,9 @@
     export let effect = 'none'
 </script>
 
-<div class="flex flex-col bg-white h-screen w-full place-content-center md:mt-20 md:place-content-start p-4 md:p-6 lg:p-8 xl:p-12">
+<div
+    class="flex flex-col bg-white h-screen w-full place-content-center md:mt-20 md:place-content-start p-4 md:p-6 lg:p-8 xl:p-12"
+>
     <ViewActionButtons {effect} />
 
     <div class="lg:pt-4 grid grid-cols-8 place-content-center gap-4 lg:gap-6 xl:gap-8 w-full">

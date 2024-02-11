@@ -18,11 +18,11 @@
 
 <div class="mx-auto max-w-[90rem] h-screen">
     <div class="relative flex flex-1 w-full overflow-hidden">
-        <div class="absolute inset-0 right-auto left-0 bg-gray-800 w-44 md:w-48 p-4">
+        <div class="absolute inset-0 right-auto left-0 bg-gray-800 w-40 md:w-56">
             <Sidebar />
         </div>
 
-        <div class="bg-white relative flex flex-1 ml-[16rem] w-full overflow-y-auto">
+        <div class="bg-white relative flex flex-1 ml-[14rem] w-full overflow-y-auto">
             <Settings vertical={$view == 'gallery'} />
             <main class="flex flex-1 bg-white">
                 {#if !src}
