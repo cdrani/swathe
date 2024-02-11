@@ -1,5 +1,5 @@
 <script lang="ts">
-import ViewActionButtons from '$lib/components/ViewActionButtons.svelte'
+    import ViewActionButtons from '$lib/components/ViewActionButtons.svelte'
 
     export let src: string
     export let effect: string
@@ -13,7 +13,6 @@ import ViewActionButtons from '$lib/components/ViewActionButtons.svelte'
     }
 
     let position = 50
-
 </script>
 
 <div class="grid content-center items-center w-full h-screen md:m-6 lg:p-8 xl:p-12">
@@ -22,23 +21,24 @@ import ViewActionButtons from '$lib/components/ViewActionButtons.svelte'
     <div
         bind:this={container}
         style="--position: 50%;"
-        class="grid mx-auto place-items-center place-items-center relative w-[450] h-[280px] lg:w-[550px] lg:h-[350px] xl:w-[700px] xl:h-[450px] overflow-hidden"
+        class="grid mx-auto place-items-center relative w-[450] h-[280px] lg:w-[550px] lg:h-[350px] xl:w-[700px] xl:h-[450px] overflow-hidden"
     >
-        <div class="relative w-[450px] h-[280px] lg:w-[550px] lg:h-[350px] xl:w-[700px] xl:h-[450px] overflow-hidden">
-            <div 
+        <div
+            class="relative w-[450px] h-[280px] lg:w-[550px] lg:h-[350px] xl:w-[700px] xl:h-[450px] overflow-hidden"
+        >
+            <div
                 class="absolute image max-w-full h-full left-0 {effect}"
-                style="--src: url({src});">
-                <img 
+                style="--src: url({src});"
+            >
+                <img
                     {src}
                     alt="post effect"
                     class="hidden max-w-full object-cover object-left w-full h-full"
                 />
             </div>
 
-            <div 
-                style="width: var(--position)"
-                class="absolute inset-0 bg-contain overflow-hidden">
-                <img 
+            <div style="width: var(--position)" class="absolute inset-0 bg-contain overflow-hidden">
+                <img
                     {src}
                     alt="post effect"
                     class="block object-cover image max-w-full h-full object-left"
