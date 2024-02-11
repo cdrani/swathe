@@ -10,7 +10,7 @@
         selection.set('none')
     }
 
-    function setView(newView: 'preview' | 'gallery') {
+    function setView(newView: 'preview' | 'gallery' | 'comparison') {
         view.set(newView)
     }
 
@@ -54,6 +54,27 @@
                     fill="white"
                     d="M36,416H476a20.023,20.023,0,0,0,20-20V116a20.023,20.023,0,0,0-20-20H36a20.023,20.023,0,0,0-20,20V396A20.023,20.023,0,0,0,36,416ZM48,128H464V384H48Z"
                 />
+            </svg>
+        </button>
+
+        <button on:click={() => setView('comparison')} class="inline-flex place-items-center">
+            <svg
+                viewBox="0 0 21 20"
+                xmlns="http://www.w3.org/2000/svg"
+                class="fill-white w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 bg-gray-800 p-1 rounded-md"
+            >
+                <g
+                    transform="translate(-2 -2)"
+                    style="stroke:#fff;stroke-width:1.5;fill:none;fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round"
+                >
+                    <path
+                        d="m7.02736429 5h-2c-1.1045695 0-2 .8954305-2 2v10c0 1.1045695.8954305 2 2 2h2"
+                    />
+                    <path
+                        d="m17.0273643 5h2c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-2"
+                    />
+                    <path d="m12 3v18" />
+                </g>
             </svg>
         </button>
     </div>
