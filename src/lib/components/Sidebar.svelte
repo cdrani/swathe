@@ -1,19 +1,25 @@
 <script lang="ts">
     import { onMount } from 'svelte'
     import { effectsList } from '$lib/effects'
-    import { selection } from '../../stores/effect'
+    import { getEffect, type Effect } from '$lib/stores/effect'
+
+    const effect = getEffect()
 
     function handleEffect(e: MouseEvent) {
         const button = e.target as HTMLButtonElement
-        const effect = button.getAttribute('aria-label') ?? 'none'
-        selection.set(effect)
+        const chosenEffect = button.getAttribute('aria-label') ?? 'none'
+        effect.set(chosenEffect as Effect)
     }
 
-    onMount(() => {
-        const currentEffect = $selection
+    function scrollToEffect() {
+        const currentEffect = $effect
         const selectedElement = document.getElementById(currentEffect)
         selectedElement?.scrollIntoView()
-    })
+    }
+
+    onMount(scrollToEffect)
+
+    $: selection = $effect
 </script>
 
 <aside
@@ -32,7 +38,7 @@
                 <li
                     id={effect}
                     class="mb-2 py-1 px-2 w-[85%] text-lg hover:rounded-md hover:font-bold hover:text-black hover:bg-white"
-                    class:selection={$selection == effect}
+                    class:selection={selection == effect}
                 >
                     <button class="w-full h-full" aria-label={effect} on:click={handleEffect}>
                         {effect}
