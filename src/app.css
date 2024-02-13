@@ -28,7 +28,7 @@
     }
 
     .image {
-        @apply w-full aspect-[1.6] bg-cover;
+        @apply w-full bg-cover;
         background-image: var(--src);
     }
 
