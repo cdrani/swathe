@@ -1,8 +1,12 @@
 <script lang="ts">
     import { invoke } from '@tauri-apps/api/tauri'
     import { join, downloadDir } from '@tauri-apps/api/path'
-    import { modal } from '../../stores/modal'
-    import { imageData } from '../../stores/image'
+
+    import { getImage } from '$lib/stores/image'
+    import { getModal } from '$lib/stores/modal'
+
+    const image = getImage()
+    const modal = getModal()
 
     export let effect: string = ''
     export let small: boolean = false
@@ -40,7 +44,7 @@
         if (!dimensions) return
 
         const folder = await downloadDir()
-        const fileName = `${$imageData.name}.png`
+        const fileName = `${$image.name}.png`
         const file_path = await join(folder, fileName)
 
         setTimeout(async () => {
@@ -53,7 +57,7 @@
     }
 
     function closeModal() {
-        modal.update(() => ({ effect: 'none', visible: false }))
+        modal.set({ effect: 'none', visible: false })
     }
 
     $: visible = $modal.visible

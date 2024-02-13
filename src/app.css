@@ -20,15 +20,15 @@
     }
 
     .setting-v {
-        @apply h-28 w-10 justify-between space-y-2;
+        @apply h-40 w-10 justify-between space-y-2 lg:space-y-3;
     }
 
     .setting-h {
-        @apply h-10 w-28 justify-between space-x-2 lg:space-x-3;
+        @apply h-10 w-40 justify-between space-x-2 lg:space-x-3;
     }
 
     .image {
-        @apply w-full aspect-video bg-cover;
+        @apply w-full bg-cover;
         background-image: var(--src);
     }
 

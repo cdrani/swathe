@@ -1,17 +1,16 @@
 <script lang="ts">
+    import { getModal } from '$lib/stores/modal'
+
+    import ImagePreview from './ImagePreview.svelte'
     import ViewActionButtons from './ViewActionButtons.svelte'
-    import { modal } from '../../stores/modal'
 
-    export let src: string = ''
-
-    function closeModal() {
-        modal.update(() => ({ effect: 'none', visible: false }))
-    }
+    const modal = getModal()
 
     function handleKey(evt: KeyboardEvent) {
         if (!$modal.visible) return
         if (!['Esc', 'Escape'].includes(evt.key)) return
-        closeModal()
+
+        modal.set({ effect: 'none', visible: false })
     }
 
     $: effect = $modal.effect
@@ -36,7 +35,7 @@
                 <ViewActionButtons {effect} />
             </div>
 
-            <div id="modal-{effect}" style="--src: url({src})" class="image {effect}"></div>
+            <ImagePreview id="modal-{effect}" {effect} />
         </div>
     </div>
 </div>

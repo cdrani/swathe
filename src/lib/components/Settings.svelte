@@ -1,16 +1,22 @@
 <script lang="ts">
-    import { view } from '../../stores/view'
-    import { imageData } from '../../stores/image'
-    import { selection } from '../../stores/effect'
+    import { getView } from '$lib/stores/view'
+    import type { View } from '$lib/stores/view'
+
+    import { getEffect } from '$lib/stores/effect'
+    import { getImage, INIT_IMAGE } from '$lib/stores/image'
 
     export let vertical: boolean = false
 
+    const view = getView()
+    const image = getImage()
+    const effect = getEffect()
+
     function clearFile() {
-        imageData.set({})
-        selection.set('none')
+        image.set(INIT_IMAGE)
+        effect.set('none')
     }
 
-    function setView(newView: 'preview' | 'gallery') {
+    function updateView(newView: View) {
         view.set(newView)
     }
 
@@ -32,7 +38,7 @@
             </svg>
         </button>
 
-        <button on:click={() => setView('gallery')} class="inline-flex place-content-center">
+        <button on:click={() => updateView('gallery')} class="inline-flex place-content-center">
             <svg
                 viewBox="-50 -50 500 500"
                 xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +50,7 @@
             </svg>
         </button>
 
-        <button on:click={() => setView('preview')} class="inline-flex place-content-center">
+        <button on:click={() => updateView('preview')} class="inline-flex place-content-center">
             <svg
                 viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg"
@@ -54,6 +60,27 @@
                     fill="white"
                     d="M36,416H476a20.023,20.023,0,0,0,20-20V116a20.023,20.023,0,0,0-20-20H36a20.023,20.023,0,0,0-20,20V396A20.023,20.023,0,0,0,36,416ZM48,128H464V384H48Z"
                 />
+            </svg>
+        </button>
+
+        <button on:click={() => updateView('comparison')} class="inline-flex place-content-center">
+            <svg
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+                class="fill-white w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 bg-gray-800 p-1 rounded-md"
+            >
+                <g
+                    transform="translate(-2 -2)"
+                    style="stroke:#fff;stroke-width:1.5;fill:none;fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round"
+                >
+                    <path
+                        d="m7.02736429 5h-2c-1.1045695 0-2 .8954305-2 2v10c0 1.1045695.8954305 2 2 2h2"
+                    />
+                    <path
+                        d="m17.0273643 5h2c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-2"
+                    />
+                    <path d="m12 3v18" />
+                </g>
             </svg>
         </button>
     </div>

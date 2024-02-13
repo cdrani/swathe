@@ -1,43 +1,54 @@
 <script lang="ts">
-    import { imageData } from '../../stores/image'
+    import { getImage } from '$lib/stores/image'
+
+    const image = getImage()
 
     function handleDrop(event: DragEvent) {
         if (!event?.dataTransfer) return
 
-        const image = event.dataTransfer.files[0]
-        if (!image) return
+        const file = event.dataTransfer.files[0]
+        if (!file) return
 
-        setImageData(image)
+        storeImageData(file)
     }
 
     function handleFile(e: Event) {
         const input = e.target as HTMLInputElement
-        const image = input?.files?.[0]
+        const file = input?.files?.[0]
 
-        if (!image) return
+        if (!file) return
 
-        setImageData(image)
+        storeImageData(file)
     }
 
-    async function compressImage(imgBlob: File, percent: number) {
+    async function compressImage(imgBlob: File) {
         const bitmap = await createImageBitmap(imgBlob)
+        const { width, height } = bitmap
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
 
-        canvas.width = bitmap.width
-        canvas.height = bitmap.height
+        canvas.width = width
+        canvas.height = height
 
         ctx?.drawImage(bitmap, 0, 0)
 
-        const dataUrl = canvas.toDataURL('image/jpeg', percent / 100)
-        return dataUrl
+        return { canvas, aspect: Number(parseFloat(`${width / height}`).toFixed(2)) }
     }
 
-    async function setImageData(image: File) {
-        const name = image.name.split(/.png|.jpeg|.jpg/).at(0)
-        const optimage = await compressImage(image, 50)
+    async function storeImageData(file: File) {
+        const { aspect, canvas } = await compressImage(file)
+        const name = file.name.split(/.png|.jpeg|.jpg/).at(0)
 
-        imageData.set({ name, src: optimage })
+        canvas.toBlob(
+            (blob) => {
+                if (!blob) return
+
+                const src = URL.createObjectURL(blob)
+                image.set({ src, name, aspect: `aspect-[${aspect}]` })
+            },
+            'image/jpeg',
+            0.5
+        )
     }
 </script>
 

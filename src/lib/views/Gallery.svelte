@@ -1,9 +1,8 @@
 <script lang="ts">
     import { effectsList } from '../effects'
+
     import ImagePreview from '$lib/components/ImagePreview.svelte'
     import ViewActionButtons from '$lib/components/ViewActionButtons.svelte'
-
-    export let src: string
 </script>
 
 <div
@@ -12,7 +11,7 @@
     {#each effectsList as effect (`grid-${effect}`)}
         <div class="flex-col justify-between content-center">
             <ViewActionButtons small {effect} />
-            <ImagePreview {src} {effect} />
+            <ImagePreview {effect} />
         </div>
     {/each}
 </div>
