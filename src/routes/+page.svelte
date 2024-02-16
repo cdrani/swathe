@@ -10,6 +10,7 @@
     import Preview from '$lib/views/Preview.svelte'
     import Modal from '$lib/components/Modal.svelte'
     import Sidebar from '$lib/components/Sidebar.svelte'
+    import Comparison from '$lib/views/Comparison.svelte'
     import Settings from '$lib/components/Settings.svelte'
     import FileUpload from '$lib/components/FileUpload.svelte'
     import ComparisonSlider from '$lib/views/ComparisonSlider.svelte'
@@ -42,7 +43,7 @@
                     {:else if $view == 'preview'}
                         <Preview />
                     {:else}
-                        <ComparisonSlider />
+                        <Comparison />
                     {/if}
                 {/if}
             </main>
