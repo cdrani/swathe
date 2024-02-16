@@ -4,9 +4,9 @@ import { getContext, setContext } from 'svelte'
 
 const STORE = 'image'
 
-type Image = { src: string; name: string; aspect: string }
+type Image = { src?: string; name?: string; aspect?: number }
 
-export const INIT_IMAGE: Image = { src: '', name: 'screenshot', aspect: '1' }
+export const INIT_IMAGE: Image = {}
 
 type Context = Writable<Image>
 
