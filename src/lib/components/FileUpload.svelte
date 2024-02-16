@@ -1,55 +1,45 @@
 <script lang="ts">
+    import { onMount } from 'svelte'
     import { getImage } from '$lib/stores/image'
+    import { listen } from '@tauri-apps/api/event'
+    import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 
     const image = getImage()
 
-    function handleDrop(event: DragEvent) {
-        if (!event?.dataTransfer) return
-
-        const file = event.dataTransfer.files[0]
-        if (!file) return
-
-        storeImageData(file)
+    async function handleFile() {
+        await optimizeImage()
     }
 
-    function handleFile(e: Event) {
-        const input = e.target as HTMLInputElement
-        const file = input?.files?.[0]
+    async function optimizeImage(filePath?: string) {
+        const [tempFilePath, aspect] = await invoke('process_image', { file_path: filePath })
+        if (!tempFilePath) return
 
-        if (!file) return
-
-        storeImageData(file)
+        setImageData({ filePath: tempFilePath, aspect })
     }
 
-    async function compressImage(imgBlob: File) {
-        const bitmap = await createImageBitmap(imgBlob)
-        const { width, height } = bitmap
-        const canvas = document.createElement('canvas')
-        const ctx = canvas.getContext('2d')
+    function setImageData({ filePath, aspect }: { filePath: string; aspect: number }) {
+        const src = decodeURIComponent(convertFileSrc(filePath as string))
 
-        canvas.width = width
-        canvas.height = height
-
-        ctx?.drawImage(bitmap, 0, 0)
-
-        return { canvas, aspect: Number(parseFloat(`${width / height}`).toFixed(2)) }
+        // TODO: use actual filename!!
+        image.set({ src, name: 'screenshot', aspect: Number(aspect.toPrecision(3)) })
     }
 
-    async function storeImageData(file: File) {
-        const { aspect, canvas } = await compressImage(file)
-        const name = file.name.split(/.png|.jpeg|.jpg/).at(0)
+    onMount(async () => {
+        const unlisten = await listen('tauri://file-drop', async (event) => {
+            const payload = event?.payload as string[]
+            console.log({ payload })
+            if (!payload?.length) return
 
-        canvas.toBlob(
-            (blob) => {
-                if (!blob) return
+            const filePath = payload.at(0)
+            if (!filePath) return
 
-                const src = URL.createObjectURL(blob)
-                image.set({ src, name, aspect: `aspect-[${aspect}]` })
-            },
-            'image/jpeg',
-            0.5
-        )
-    }
+            await optimizeImage(filePath)
+        })
+
+        return () => {
+            unlisten()
+        }
+    })
 </script>
 
 <div
@@ -57,8 +47,6 @@
 >
     <section
         aria-label="upload"
-        on:dragover|preventDefault
-        on:drop|preventDefault={handleDrop}
         class="col-start-2 col-span-4 row-start-2 row-span-4 w-full h-2/3 place-content-center transition bg-white border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 focus:outline-none"
     >
         <label class="flex w-full h-full p-4 items-center place-content-center cursor-pointer">
@@ -83,7 +71,7 @@
                 </span>
             </span>
 
-            <input on:change={handleFile} type="file" name="file_upload" class="hidden" />
+            <button on:click={handleFile} name="file_upload" />
         </label>
     </section>
 </div>
