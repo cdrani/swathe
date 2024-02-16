@@ -1,8 +1,12 @@
 <script lang="ts">
     import { effectsList } from '../effects'
+    import { getImage } from '$lib/stores/image'
 
     import ImagePreview from '$lib/components/ImagePreview.svelte'
     import ViewActionButtons from '$lib/components/ViewActionButtons.svelte'
+
+    const image = getImage()
+    const { aspect } = $image
 </script>
 
 <div
@@ -11,7 +15,9 @@
     {#each effectsList as effect (`grid-${effect}`)}
         <div class="flex-col justify-between content-center">
             <ViewActionButtons small {effect} />
-            <ImagePreview {effect} />
+            <div class="aspect-[{aspect}]">
+                <ImagePreview {effect} />
+            </div>
         </div>
     {/each}
 </div>

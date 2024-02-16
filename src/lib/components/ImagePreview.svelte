@@ -8,4 +8,8 @@
     const { src, aspect } = $image
 </script>
 
-<div id={`effect-${id || effect}`} style="--src: url({src})" class="image {effect} {aspect}"></div>
+<div
+    class="image {effect}"
+    id={`effect-${id || effect}`}
+    style="--src: url({src}); --aspect: {aspect}"
+></div>
