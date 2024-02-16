@@ -10,18 +10,17 @@
     import Preview from '$lib/views/Preview.svelte'
     import Modal from '$lib/components/Modal.svelte'
     import Sidebar from '$lib/components/Sidebar.svelte'
+    import Comparison from '$lib/views/Comparison.svelte'
     import Settings from '$lib/components/Settings.svelte'
     import FileUpload from '$lib/components/FileUpload.svelte'
-    import ComparisonSlider from '$lib/views/ComparisonSlider.svelte'
 
-    initImage()
     initView()
-    initEffect()
     initModal()
+    initImage()
+    initEffect()
 
     const view = getView()
     const image = getImage()
-    console.log({ image: $image })
 </script>
 
 <div class="mx-auto max-w-[90rem] h-screen">
@@ -33,7 +32,7 @@
         <div class="bg-white relative flex flex-1 ml-[14rem] w-full overflow-y-auto">
             <Settings vertical={$view == 'gallery'} />
             <main class="flex flex-1 bg-white">
-                {#if !$image?.src}
+                {#if !$image?.src && !$image?.aspect}
                     <FileUpload />
                 {:else}
                     <Modal />
@@ -42,7 +41,7 @@
                     {:else if $view == 'preview'}
                         <Preview />
                     {:else}
-                        <ComparisonSlider />
+                        <Comparison />
                     {/if}
                 {/if}
             </main>

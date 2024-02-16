@@ -29,6 +29,7 @@
 
     .image {
         @apply w-full bg-cover;
+        aspect-ratio: var(--aspect);
         background-image: var(--src);
     }
 

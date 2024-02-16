@@ -15,13 +15,19 @@
         "allowlist": {
             "all": false,
             "dialog": {
-                "save": true
+                "save": true,
+                "open": true
             },
             "path": {
                 "all": true
             },
             "fs": {
-                "writeFile": true
+                "writeFile": true,
+                "scope": ["**"]
+            },
+            "protocol": {
+                "asset": true,
+                "assetScope": ["**"]
             }
         },
         "bundle": {
@@ -58,21 +64,21 @@
             }
         },
         "security": {
-            "csp": null
+            "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
         },
         "updater": {
             "active": false
         },
         "windows": [
             {
+                "width": 800,
+                "height": 600,
                 "minWidth": 800,
                 "minHeight": 600,
-                "fullscreen": false,
-                "height": 600,
                 "resizable": true,
                 "title": "swathe",
-                "width": 800,
-                "fileDropEnabled": false
+                "fullscreen": false,
+                "fileDropEnabled": true
             }
         ]
     }
