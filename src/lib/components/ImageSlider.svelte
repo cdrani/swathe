@@ -27,21 +27,21 @@
         slideBtn.classList.replace('grid', 'hidden')
     }
 
-    const { aspect, src } = $image
+    const { src, aspect } = $image
 
     onMount(handleFocusIn)
 </script>
 
-<div class="lg:pt-4 flex w-full aspect-[{aspect}] aspect-[1.78] gap-4 lg:gap-6 xl:gap-8">
+<div class="lg:mt-4 flex w-full gap-4 lg:gap-6 xl:gap-8">
     <button
         bind:this={container}
-        style="--position: 50%"
         on:focus={handleFocusIn}
         on:click={handleFocusIn}
         on:focusin={handleFocusIn}
         on:focusout={handleFocusOut}
         on:mouseover={handleFocusIn}
         on:mouseleave={handleFocusOut}
+        style="--position: 50%; aspect-ratio: {aspect}"
         class="grid mx-auto place-items-center relative w-full h-full overflow-hidden"
     >
         <div class="relative w-full h-full overflow-hidden">
