@@ -34,6 +34,7 @@
 
 <div class="lg:mt-4 flex w-full gap-4 lg:gap-6 xl:gap-8">
     <button
+        id="effect-{effect}"
         bind:this={container}
         on:focus={handleFocusIn}
         on:click={handleFocusIn}
