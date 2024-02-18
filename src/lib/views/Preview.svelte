@@ -18,7 +18,7 @@
             <ImagePreview id="preview" effect="none" />
         </div>
         <div class="w-full col-start-3 col-end-12">
-            <ImagePreview id="preview-effect" effect={$effect} />
+            <ImagePreview effect={$effect} />
         </div>
     </div>
 </div>
