@@ -27,7 +27,6 @@
     onMount(async () => {
         const unlisten = await listen('tauri://file-drop', async (event) => {
             const payload = event?.payload as string[]
-            console.log({ payload })
             if (!payload?.length) return
 
             const filePath = payload.at(0)
@@ -43,11 +42,11 @@
 </script>
 
 <div
-    class="relative bg-white overflow-auto grid grid-cols-6 grid-rows-5 mx-auto w-full h-screen place-content-center"
+    class="relative bg-white grid grid-cols-6 grid-rows-5 mx-auto w-full h-dvh place-content-center"
 >
     <section
         aria-label="upload"
-        class="col-start-2 col-span-4 row-start-2 row-span-4 w-full h-2/3 place-content-center transition bg-white border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 focus:outline-none"
+        class="absolute aspect-video top-1/3 -translate-y-1/3 col-start-2 col-span-4 row-start-2 row-span-3 lg:row-span-4 w-full place-content-center transition bg-white border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 focus:outline-none"
     >
         <label class="flex w-full h-full p-4 items-center place-content-center cursor-pointer">
             <span class="flex items-center space-x-2">
@@ -67,7 +66,7 @@
                 </svg>
                 <span class="text-lg md:text-xl lg:text-2xl text-center font-medium text-gray-600">
                     Drop file to Upload, or
-                    <span class="text-blue-600 underline">browse</span>
+                    <span class="text-blue-600 underline">browse files</span>
                 </span>
             </span>
 

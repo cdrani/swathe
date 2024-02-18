@@ -1,11 +1,12 @@
 <script lang="ts">
     import { invoke } from '@tauri-apps/api/tauri'
+    import { appWindow } from '@tauri-apps/api/window'
     import { join, downloadDir } from '@tauri-apps/api/path'
 
+    import { shortName } from '$lib/utils/name'
     import { getImage } from '$lib/stores/image'
     import { getModal } from '$lib/stores/modal'
 
-    const image = getImage()
     const modal = getModal()
 
     export let effect: string = ''
@@ -18,38 +19,37 @@
     }
 
     function getBGImage() {
-        const idPrefix = $modal.visible ? 'modal' : 'effect'
+        const idPrefix = $modal.visible ? 'effect-modal' : 'effect'
         return document.getElementById(`${idPrefix}-${effect}`)
     }
 
-    function getCoords() {
+    async function getCoords() {
         const bgImage = getBGImage()
         if (!bgImage) return
 
         const offsets = bgImage?.getBoundingClientRect()
         if (!offsets) return
 
+        const factor = await appWindow.scaleFactor()
         const { left, top, width, height } = offsets
 
         return {
-            top: parseNum(top),
-            left: parseNum(left),
-            width: parseNum(width),
-            height: parseNum(height)
+            top: parseNum(top) * factor,
+            left: parseNum(left) * factor,
+            width: parseNum(width) * factor,
+            height: parseNum(height) * factor
         }
     }
 
     async function downloadImage() {
-        const dimensions = getCoords()
+        const dimensions = await getCoords()
         if (!dimensions) return
 
         const folder = await downloadDir()
-        const fileName = `${$image.name}.png`
+        const fileName = `${shortName()}.png`
         const file_path = await join(folder, fileName)
 
-        setTimeout(async () => {
-            await invoke('flickr', { file_path, dims: dimensions })
-        }, 500)
+        await invoke('flickr', { file_path, dims: dimensions })
     }
 
     function openModal() {

@@ -28,9 +28,9 @@
         : 'hidden overflow-y-hidden'} z-20 inset-0 bg-gray-900 bg-opacity-80 flex w-full content-center place-content-center"
 >
     <div
-        class="absolute top-1/2 -translate-y-1/2 z-50 w-11/12 max-w-screen-xl xl:max-w-screen-2xl bg-transparent h-full"
+        class="absolute top-1/2 -translate-y-1/2 z-50 w-10/12 h-3/5 max-w-screen-xl xl:max-w-screen-2xl bg-transparent"
     >
-        <div class="relative top-1/2 -translate-y-1/2 flex w-full xl:w-full">
+        <div class="relative top-1/2 -translate-y-1/2 flex w-full">
             <div class="absolute -top-12 -right-0 flex z-20">
                 <ViewActionButtons {effect} />
             </div>
