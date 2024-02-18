@@ -1,36 +1,43 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use active_win_pos_rs::get_active_window;
-use image::GenericImageView;
-use image::{io::Reader as ImageReader, DynamicImage};
-use screenshots::Screen;
 use serde::Deserialize;
+use std::fs::File;
 use std::option::Option;
 use std::path::{Path, PathBuf};
+use tauri::api::dialog::blocking::FileDialogBuilder;
+use xcap::{
+    image::{io::Reader as ImageReader, DynamicImage, GenericImageView, ImageOutputFormat},
+    Window,
+};
 
 #[derive(Deserialize)]
-struct Dimension {
-    top: i32,
-    left: i32,
+struct CropDimension {
+    top: u32,
+    left: u32,
     width: u32,
     height: u32,
 }
 
 async fn select_image() -> Option<PathBuf> {
-    use tauri::api::dialog::blocking::FileDialogBuilder;
-
     FileDialogBuilder::new().pick_file()
 }
 
-fn compress_image(image: &DynamicImage, file_path: &Path, quality: u8) -> Result<(), ()> {
-    let file = match std::fs::File::create(file_path) {
+fn create_file<P: AsRef<Path>>(file_path: P) -> Result<File, ()> {
+    match File::create(&file_path) {
+        Ok(file) => Ok(file),
+        Err(_) => Err(()),
+    }
+}
+
+fn compress_image(image: &DynamicImage, file_path: &Path) -> Result<(), ()> {
+    let file = match create_file(&file_path) {
         Ok(file) => file,
         Err(_) => return Err(()),
     };
 
     let mut writer = std::io::BufWriter::new(file);
 
-    match image.write_to(&mut writer, image::ImageOutputFormat::Jpeg(quality)) {
+    match image.write_to(&mut writer, ImageOutputFormat::Png) {
         Ok(_) => Ok(()),
         Err(_) => Err(()),
     }
@@ -50,7 +57,7 @@ fn write_to_tmp(image: &DynamicImage) -> Result<(String, f64), ()> {
 
     let file_name = format!("{}.jpeg", uuid::Uuid::new_v4());
     let file_path = temp_dir.join(&file_name);
-    let _ = compress_image(image, &file_path, 75);
+    let _ = compress_image(image, &file_path);
 
     let file_path_str = match file_path.to_str() {
         Some(path_str) => path_str.to_string(),
@@ -84,32 +91,31 @@ async fn process_image(file_path: Option<&str>) -> Result<(String, f64), ()> {
 }
 
 #[tauri::command(rename_all = "snake_case")]
-fn flickr(file_path: &str, dims: Dimension) {
-    match get_active_window() {
-        Ok(active_window) => {
-            let _x: i32 = active_window.position.x as i32;
-            let _y: i32 = active_window.position.y as i32;
+fn flickr(file_path: &str, dims: CropDimension) {
+    let CropDimension {
+        left,
+        top,
+        width,
+        height,
+    } = dims;
 
-            let cap = Screen::from_point(_x, _y).unwrap();
+    let windows = Window::all().unwrap();
 
-            let Dimension {
-                left,
-                top,
-                width,
-                height,
-            } = dims;
-
-            let image = cap
-                .capture_area(left + _x, top + _y, width, height)
-                .unwrap();
-
-            let buffer = image.to_png(None).unwrap();
-
-            std::fs::write(file_path, buffer).unwrap();
+    for window in windows {
+        if window.app_name() != "swathe" {
+            continue;
         }
-        Err(()) => {
-            println!("Error getting active window")
-        }
+
+        let y_offset: u32 = match window.y() < 0 {
+            true => 0,
+            false => window.y() as u32,
+        };
+
+        let image = window.capture_image().unwrap();
+        let dimage = DynamicImage::from(image).crop(left, top + y_offset, width, height);
+
+        let path = Path::new(file_path);
+        let _ = compress_image(&dimage, &path);
     }
 }
 
