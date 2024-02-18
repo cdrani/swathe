@@ -27,7 +27,6 @@
     onMount(async () => {
         const unlisten = await listen('tauri://file-drop', async (event) => {
             const payload = event?.payload as string[]
-            console.log({ payload })
             if (!payload?.length) return
 
             const filePath = payload.at(0)
@@ -43,7 +42,7 @@
 </script>
 
 <div
-    class="relative bg-white overflow-auto grid grid-cols-6 grid-rows-5 mx-auto w-full h-screen place-content-center"
+    class="relative bg-white grid grid-cols-6 grid-rows-5 mx-auto w-full h-dvh place-content-center"
 >
     <section
         aria-label="upload"
