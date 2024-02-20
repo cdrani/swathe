@@ -1,10 +1,12 @@
 <script lang="ts">
     import { onMount } from 'svelte'
     import { getImage } from '$lib/stores/image'
+    import type { Effect } from '$lib/stores/effect'
 
     const image = getImage()
 
-    export let effect: string
+    export let effect: Effect
+    export let inModal: boolean
 
     let position = 50
     let slideBtn: HTMLDivElement
@@ -69,7 +71,6 @@
 
 <div class="lg:mt-4 flex w-full gap-4 lg:gap-6 xl:gap-8">
     <button
-        id="effect-{effect}"
         bind:this={container}
         on:focus={handleFocusIn}
         on:click={handleFocusIn}
@@ -77,6 +78,7 @@
         on:focusout={handleFocusOut}
         on:mouseover={handleFocusIn}
         on:mouseleave={handleFocusOut}
+        id="effect-{inModal ? 'modal-' : ''}{effect}"
         style="--position: 50%; aspect-ratio: {aspect}"
         class="grid mx-auto place-items-center relative w-full h-full overflow-hidden"
     >
