@@ -1,55 +1,17 @@
 <script lang="ts">
-    import { invoke } from '@tauri-apps/api/tauri'
-    import { appWindow } from '@tauri-apps/api/window'
-    import { join, downloadDir } from '@tauri-apps/api/path'
-
-    import { shortName } from '$lib/utils/name'
-    import { getImage } from '$lib/stores/image'
     import { getModal } from '$lib/stores/modal'
+    import { downloadImage } from '$lib/utils/download'
+    import type { Effect } from '$lib/stores/effect'
 
     const modal = getModal()
 
-    export let effect: string = ''
+    export let effect: Effect
     export let small: boolean = false
 
     const wh = small ? 6 : 9
 
-    function parseNum(num: number) {
-        return parseInt(`${num}`, 10)
-    }
-
-    function getBGImage() {
-        const idPrefix = $modal.visible ? 'effect-modal' : 'effect'
-        return document.getElementById(`${idPrefix}-${effect}`)
-    }
-
-    async function getCoords() {
-        const bgImage = getBGImage()
-        if (!bgImage) return
-
-        const offsets = bgImage?.getBoundingClientRect()
-        if (!offsets) return
-
-        const factor = await appWindow.scaleFactor()
-        const { left, top, width, height } = offsets
-
-        return {
-            top: parseNum(top) * factor,
-            left: parseNum(left) * factor,
-            width: parseNum(width) * factor,
-            height: parseNum(height) * factor
-        }
-    }
-
-    async function downloadImage() {
-        const dimensions = await getCoords()
-        if (!dimensions) return
-
-        const folder = await downloadDir()
-        const fileName = `${shortName()}.png`
-        const file_path = await join(folder, fileName)
-
-        await invoke('flickr', { file_path, dims: dimensions })
+    async function downloadImageEffect() {
+        await downloadImage({ visible: $modal.visible, effect })
     }
 
     function openModal() {
@@ -67,7 +29,7 @@
     <div class="flex justify-end w-24 h-{wh} content-evenly">
         <button
             type="button"
-            on:click={downloadImage}
+            on:click={downloadImageEffect}
             class="inline-flex bg-gray-900 p-1 rounded items-center justify-center mr-2"
         >
             <svg

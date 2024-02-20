@@ -1,10 +1,11 @@
 import { writable } from 'svelte/store'
+import type { Effect } from './effect'
 import type { Writable } from 'svelte/store'
 import { getContext, setContext } from 'svelte'
 
 const STORE = 'modal'
 
-type Modal = { effect: string; visible: boolean }
+type Modal = { effect: Effect; visible: boolean }
 type Context = Writable<Modal>
 
 export const INIT_MODAL: Modal = { effect: 'none', visible: false }

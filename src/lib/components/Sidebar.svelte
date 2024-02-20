@@ -4,6 +4,7 @@
     import { getEffect, type Effect } from '$lib/stores/effect'
 
     const effect = getEffect()
+    $: selection = $effect
 
     function handleEffect(e: MouseEvent) {
         const button = e.target as HTMLButtonElement
@@ -17,9 +18,36 @@
         selectedElement?.scrollIntoView()
     }
 
-    onMount(scrollToEffect)
+    let timeoutId: number
 
-    $: selection = $effect
+    function handleKey(event: KeyboardEvent) {
+        const isShift = event.shiftKey
+        const isUpArrow = event.key == 'ArrowUp'
+        const isDownArrow = event.key == 'ArrowDown'
+
+        if (!isShift || !(isUpArrow || isDownArrow)) return
+
+        timeoutId && clearTimeout(timeoutId)
+
+        let indexOfCurrentEffect = effectsList.findIndex((effect) => effect == selection)
+
+        const newEffectIndex = isUpArrow
+            ? Math.max(0, indexOfCurrentEffect - 1)
+            : Math.min(effectsList.length - 1, indexOfCurrentEffect + 1)
+
+        effect.set(effectsList[newEffectIndex])
+
+        timeoutId = setTimeout(scrollToEffect, 200)
+    }
+
+    onMount(() => {
+        scrollToEffect()
+        window.addEventListener('keydown', handleKey)
+
+        return () => {
+            window.removeEventListener('keydown', handleKey)
+        }
+    })
 </script>
 
 <aside

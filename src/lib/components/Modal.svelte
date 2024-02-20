@@ -25,7 +25,7 @@
     aria-modal="true"
     class="fixed w-full h-full {visible
         ? 'block overflow-y-hidden'
-        : 'hidden overflow-y-hidden'} z-20 inset-0 bg-gray-900 bg-opacity-80 flex w-full content-center place-content-center"
+        : 'hidden overflow-y-hidden'} z-50 inset-0 bg-gray-900 bg-opacity-80 flex w-full content-center place-content-center"
 >
     <div
         class="absolute top-1/2 -translate-y-1/2 z-50 w-10/12 h-3/5 max-w-screen-xl xl:max-w-screen-2xl bg-transparent"
