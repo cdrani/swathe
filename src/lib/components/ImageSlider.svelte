@@ -27,9 +27,44 @@
         slideBtn.classList.replace('grid', 'hidden')
     }
 
+    let timeoutId: number
+
+    function updatePosition(isLeftArrow: boolean) {
+        let newPosition
+
+        if (isLeftArrow) {
+            newPosition = position == 0 ? 0 : --position
+        } else {
+            newPosition = position == 100 ? 100 : ++position
+        }
+
+        container.style.setProperty('--position', `${newPosition}%`)
+    }
+
+    function handleSlider(event: KeyboardEvent) {
+        const isShiftKey = event.shiftKey
+        const isLeftArrow: boolean = event.key == 'ArrowLeft'
+        const isRightArrow: boolean = event.key == 'ArrowRight'
+
+        if (!isShiftKey || !(isLeftArrow || isRightArrow)) return
+
+        handleFocusIn()
+        timeoutId && clearTimeout(timeoutId)
+
+        updatePosition(isLeftArrow)
+        timeoutId = setTimeout(handleFocusOut, 2000)
+    }
+
     const { src, aspect } = $image
 
-    onMount(handleFocusIn)
+    onMount(() => {
+        handleFocusIn()
+        window.addEventListener('keydown', handleSlider)
+
+        return () => {
+            window.removeEventListener('keydown', handleSlider)
+        }
+    })
 </script>
 
 <div class="lg:mt-4 flex w-full gap-4 lg:gap-6 xl:gap-8">

@@ -5,7 +5,7 @@ import { getContext, setContext } from 'svelte'
 const STORE = 'view'
 export type View = 'gallery' | 'comparison' | 'preview'
 
-const INIT_STATE: View = 'gallery'
+const INIT_STATE: View = 'preview'
 
 type Context = Writable<View>
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onMount } from 'svelte'
     import { getView } from '$lib/stores/view'
     import type { View } from '$lib/stores/view'
 
@@ -20,7 +21,30 @@
         view.set(newView)
     }
 
+    function handleKeys(event: KeyboardEvent) {
+        const isShift = event.shiftKey
+        const isXKey = event.key == 'X'
+        const isCKey = event.key == 'C'
+        const isPKey = event.key == 'P'
+        const isGKey = event.key == 'G'
+
+        if (!isShift || !(isCKey || isPKey || isGKey || isXKey)) return
+
+        if (isXKey) return clearFile()
+
+        const views = { G: 'gallery', C: 'comparison', P: 'preview' }
+        updateView(views[event.key] as View)
+    }
+
     $: dir = vertical ? 'col' : 'row'
+
+    onMount(() => {
+        window.addEventListener('keydown', handleKeys)
+
+        return () => {
+            window.removeEventListener('keydown', handleKeys)
+        }
+    })
 </script>
 
 <div class="absolute left-1 lg:left-3 xl:left-4">
