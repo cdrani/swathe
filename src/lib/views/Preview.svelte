@@ -9,7 +9,7 @@
 </script>
 
 <div
-    class="flex flex-col bg-white h-screen w-full place-content-center md:mt-20 md:place-content-start p-4 md:p-6 lg:p-8 xl:p-12"
+    class="flex flex-col bg-white h-screen w-full place-content-center md:place-content-start p-4 md:p-6 lg:p-8 xl:p-12"
 >
     <ViewActionButtons effect={$effect} />
 

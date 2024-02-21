@@ -2,11 +2,13 @@
     import '../app.css'
 
     import { onMount } from 'svelte'
-    import { downloadImage } from '$lib/utils/download'
     import { initView, getView } from '$lib/stores/view'
     import { initModal, getModal } from '$lib/stores/modal'
     import { initImage, getImage } from '$lib/stores/image'
     import { initEffect, getEffect } from '$lib/stores/effect'
+
+    import { downloadImage } from '$lib/utils/download'
+    import { updateAspectRatio } from '$lib/utils/aspect'
 
     import Gallery from '$lib/views/Gallery.svelte'
     import Preview from '$lib/views/Preview.svelte'
@@ -31,12 +33,19 @@
 
         const shiftKey = event.shiftKey
         const dKey = event.key == 'D'
+        const fKey = event.key == 'F'
         const mKey = event.key == 'M'
 
-        if (!shiftKey || !(dKey || mKey)) return
+        if (!shiftKey || !(dKey || mKey || fKey)) return
 
-        if (mKey) return modal.set({ effect: $effect, visible: !$modal.visible })
-        if (dKey) downloadImage({ visible: $modal.visible, effect: $effect })
+        const { full, visible } = $modal
+        if (dKey) return downloadImage({ visible: $modal.visible, effect: $effect })
+
+        if (mKey || fKey) {
+            const shouldHide = visible && ((mKey && !full) || (fKey && full))
+            modal.set({ full: fKey, effect: $effect, visible: !shouldHide })
+            fKey && updateAspectRatio($image.aspect)
+        }
     }
 
     onMount(() => {
@@ -49,7 +58,15 @@
 </script>
 
 <div class="mx-auto max-w-[90rem] h-screen">
-    <div class="relative flex flex-1 w-full overflow-hidden">
+    {#if $image.src}
+        <Modal />
+    {/if}
+
+    <div
+        class:blur-sm={$modal.visible}
+        class:opacity-75={$modal.visible}
+        class="relative flex flex-1 w-full overflow-hidden"
+    >
         <div class="absolute inset-0 right-auto left-0 bg-gray-800 w-40 md:w-56">
             <Sidebar />
         </div>
@@ -57,17 +74,14 @@
         <div class="bg-white relative flex flex-1 ml-[14rem] w-full overflow-y-auto">
             <Settings vertical={$view == 'gallery'} />
             <main class="flex flex-1 bg-white">
-                {#if !$image?.src && !$image?.aspect}
+                {#if !$image?.src}
                     <FileUpload />
+                {:else if $view == 'gallery'}
+                    <Gallery />
+                {:else if $view == 'preview'}
+                    <Preview />
                 {:else}
-                    <Modal />
-                    {#if $view == 'gallery'}
-                        <Gallery />
-                    {:else if $view == 'preview'}
-                        <Preview />
-                    {:else}
-                        <Comparison />
-                    {/if}
+                    <Comparison />
                 {/if}
             </main>
         </div>

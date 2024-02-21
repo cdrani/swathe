@@ -14,29 +14,30 @@
         await downloadImage({ visible: $modal.visible, effect })
     }
 
-    function openModal() {
-        modal.set({ effect, visible: true })
+    function openModal(full: boolean) {
+        modal.set({ effect, visible: true, full })
     }
 
     function closeModal() {
-        modal.set({ effect: 'none', visible: false })
+        modal.update((prevState) => ({ ...prevState, effect: 'none', visible: false }))
     }
 
     $: visible = $modal.visible
+    $: full = $modal.full
 </script>
 
 <div class="relative inline-flex items-center content-end justify-end w-full h-10 mb-1">
-    <div class="flex justify-end w-24 h-{wh} content-evenly">
+    <div class="flex justify-end w-fit h-{wh} content-evenly">
         <button
-            type="button"
+            aria-label="download"
             on:click={downloadImageEffect}
-            class="inline-flex bg-gray-900 p-1 rounded items-center justify-center mr-2"
+            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white p-1 rounded items-center justify-center"
         >
             <svg
+                class:small
                 viewBox="0 0 16 16"
                 class="fill-white"
                 class:big={!small}
-                class:small
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <path d="m0 0h16v16h-16z" fill="none" />
@@ -47,15 +48,15 @@
         </button>
 
         <button
-            aria-label={effect}
-            on:click|stopPropagation={openModal}
-            class="inline-flex bg-gray-900 p-1 rounded justify-center items-center"
+            aria-label="medium screen"
+            on:click|stopPropagation={() => openModal(false)}
+            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white p-1 rounded justify-center items-center ml-2"
             class:hidden={!small && visible}
         >
             <svg
-                viewBox="-30 0 512 512"
-                class:big={!small && !visible}
                 class:small
+                class:big={!small && !visible}
+                viewBox="-30 0 512 512"
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <path
@@ -64,10 +65,58 @@
             </svg>
         </button>
 
+        <!-- open full-screen -->
         <button
-            type="button"
+            aria-label="open fullscreen"
+            on:click|stopPropagation={() => openModal(true)}
+            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white rounded p-1 justify-center items-center ml-2"
+            class:hidden={visible && full}
+        >
+            <svg
+                class:small
+                class:big={!small}
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                class="fill-white"
+            >
+                <path
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m9 15-6 6m0 0v-5m0 5h5m7-12 6-6m0 0v5m0-5h-5"
+                />
+            </svg>
+        </button>
+
+        <!-- exit full-screen -->
+        <button
+            aria-label="exit fullscreen"
+            on:click|stopPropagation={() => openModal(false)}
+            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white rounded p-1 justify-center items-center ml-2"
+            class:hidden={!visible || !full}
+        >
+            <svg
+                class:small
+                class:big={!small}
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                class="fill-white"
+            >
+                <path
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21 3l-6 6m0 0V4m0 5h5M3 21l6-6m0 0v5m0-5H4"
+                />
+            </svg>
+        </button>
+
+        <button
             on:click={closeModal}
-            class="flex bg-gray-900 rounded p-1 justify-center items-center"
+            aria-label="close modal"
+            class="flex bg-gray-900 border-solid h-fit w-fit border-2 border-white rounded p-1 justify-center items-center ml-2"
             class:hidden={small || !visible}
         >
             <svg
