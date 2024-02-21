@@ -1,6 +1,9 @@
 <script lang="ts">
+    import { onMount } from 'svelte'
     import { getView } from '$lib/stores/view'
     import { getModal } from '$lib/stores/modal'
+    import { getImage } from '$lib/stores/image'
+    import { updateAspectRatio } from '$lib/utils/aspect'
 
     import ImageSlider from './ImageSlider.svelte'
     import ImagePreview from './ImagePreview.svelte'
@@ -8,16 +11,32 @@
 
     const view = getView()
     const modal = getModal()
+    const image = getImage()
 
     function handleKey(evt: KeyboardEvent) {
         if (!$modal.visible) return
         if (!['Esc', 'Escape'].includes(evt.key)) return
 
-        modal.set({ effect: 'none', visible: false })
+        modal.update((prevState) => ({ ...prevState, effect: 'none', visible: false }))
     }
 
     $: effect = $modal.effect
     $: visible = $modal.visible
+
+    function shouldUpdateModalSize() {
+        updateAspectRatio($image.aspect)
+    }
+
+    onMount(() => {
+        $modal.full && updateAspectRatio($image.aspect)
+
+        window.addEventListener('resize', shouldUpdateModalSize)
+
+        return () => {
+            window.removeEventListener('resize', shouldUpdateModalSize)
+        }
+    })
+    $: full = $modal.full
 </script>
 
 <svelte:body on:keydown|preventDefault={handleKey} />
