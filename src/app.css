@@ -3,16 +3,21 @@
 @tailwind utilities;
 
 @layer components {
+    /* modal */
+    .modal-fit {
+        @apply max-w-screen-xl lg:max-w-screen-2xl w-full;
+    }
+
     .selection {
         @apply font-bold text-black rounded-md bg-white;
     }
 
     .small {
-        @apply fill-white aspect-video scale-150 min-w-5 lg:min-w-5;
+        @apply fill-white scale-75 min-w-5 aspect-square;
     }
 
     .big {
-        @apply fill-white aspect-square min-w-6 lg:min-w-8 scale-75;
+        @apply fill-white scale-75 aspect-square min-w-6 lg:min-w-8;
     }
 
     .outline {
