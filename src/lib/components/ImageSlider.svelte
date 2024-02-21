@@ -6,7 +6,7 @@
     const image = getImage()
 
     export let effect: Effect
-    export let inModal: boolean
+    export let inModal: boolean = false
 
     let position = 50
     let slideBtn: HTMLDivElement
@@ -69,7 +69,7 @@
     })
 </script>
 
-<div class="lg:mt-4 flex w-full gap-4 lg:gap-6 xl:gap-8">
+<div class="flex w-full gap-4 lg:gap-6 xl:gap-8">
     <button
         bind:this={container}
         on:focus={handleFocusIn}
