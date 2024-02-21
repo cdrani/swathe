@@ -53,7 +53,9 @@
 <aside
     class="fixed flex-col h-dvh space-between place-content-center items-center w-40 md:w-56 bg-gray-800 text-gray-400 overflow-hidden overscroll-contain"
 >
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 flex-col w-full justify-center pt-3 mb-2 bottom-2">
+    <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 flex-col w-full justify-center pt-3 mb-2 bottom-2"
+    >
         <h2 class="text-2xl text-center lowercase tracking-[16px]">Swathe</h2>
         <hr class="w-full" />
     </div>
