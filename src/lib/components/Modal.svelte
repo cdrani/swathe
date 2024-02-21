@@ -28,15 +28,25 @@
     aria-modal="true"
     class="fixed w-full h-full {visible
         ? 'block overflow-y-hidden'
-        : 'hidden overflow-y-hidden'} z-[100] inset-0 bg-gray-900 bg-opacity-80 flex w-full content-center place-content-center"
+        : 'hidden overflow-y-hidden'} top-1/2 -translate-y-1/2 z-[100] inset-0 flex w-full h-full mx-auto items-center content-center place-content-center"
 >
     <div
-        class="absolute top-1/2 -translate-y-1/2 z-50 w-10/12 h-3/5 max-w-screen-xl xl:max-w-screen-2xl bg-transparent"
+        id="modal-content"
+        class="absolute z-50 w-full mx-auto bg-transparent"
+        class:modal-fit={!full}
     >
-        <div class="relative top-1/2 -translate-y-1/2 flex w-full">
-            <div class="absolute -top-12 -right-0 flex z-20">
+        {#if full}
+            <div id="actions" class="absolute top-4 right-4 flex z-[101]">
                 <ViewActionButtons {effect} />
             </div>
+        {/if}
+
+        <div class="relative flex w-full h-full">
+            {#if !full}
+                <div id="actions" class="absolute top-4 right-4 flex z-[101]">
+                    <ViewActionButtons {effect} />
+                </div>
+            {/if}
 
             {#if $view == 'comparison'}
                 <ImageSlider {effect} inModal />
