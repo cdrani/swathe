@@ -41,6 +41,11 @@ export async function downloadImage(params: DownloadParms) {
     const folder = await downloadDir()
     const fileName = `${shortName()}.png`
     const file_path = await join(folder, fileName)
+    const actionsContainer = document.getElementById('actions')
 
-    await invoke('flickr', { file_path, dims: dimensions })
+    actionsContainer?.classList?.add('hidden')
+    setTimeout(async () => {
+        await invoke('flickr', { file_path, dims: dimensions })
+        actionsContainer?.classList?.remove('hidden')
+    }, 100)
 }
