@@ -1,6 +1,5 @@
 name: 'publish'
 
-# This will trigger the action on each push to the `release` branch.
 on:
   push:
     branches:
@@ -22,7 +21,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -35,6 +34,8 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
+        with:
+          version: 8
 
       - name: Get pnpm store directory
         shell: bash
