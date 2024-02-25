@@ -1,8 +1,10 @@
 <script lang="ts">
     import { onMount } from 'svelte'
     import { effectsList } from '$lib/effects'
+    import { getView } from '$lib/stores/view'
     import { getEffect, type Effect } from '$lib/stores/effect'
 
+    const view = getView()
     const effect = getEffect()
     $: selection = $effect
 
@@ -10,12 +12,20 @@
         const button = e.target as HTMLButtonElement
         const chosenEffect = button.getAttribute('aria-label') ?? 'none'
         effect.set(chosenEffect as Effect)
+
+        $view == 'gallery' && scrollToEffect()
+    }
+
+    function scrollGalleryItemToView(selectedEffect: Effect) {
+        const galleryItem = document.getElementById(`gallery-${selectedEffect}`)
+        galleryItem?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
 
     function scrollToEffect() {
         const currentEffect = $effect
         const selectedElement = document.getElementById(currentEffect)
-        selectedElement?.scrollIntoView()
+        selectedElement?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        scrollGalleryItemToView(currentEffect)
     }
 
     let timeoutId: number
