@@ -38,7 +38,7 @@
     })
 </script>
 
-<div class="absolute left-1 lg:left-3 xl:left-4">
+<div class="absolute md:left-1 lg:left-2 xl:left-4">
     <div class="fixed top-6 flex flex-{dir}" class:setting-h={!vertical} class:setting-v={vertical}>
         <button on:click|preventDefault={clearFile} class="inline-flex place-content-center">
             <svg
