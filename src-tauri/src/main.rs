@@ -19,7 +19,9 @@ struct CropDimension {
 }
 
 async fn select_image() -> Option<PathBuf> {
-    FileDialogBuilder::new().pick_file()
+    FileDialogBuilder::new()
+        .add_filter("Image", &["png", "jpg", "jpeg", "webp"])
+        .pick_file()
 }
 
 fn create_file<P: AsRef<Path>>(file_path: P) -> Result<File, ()> {
