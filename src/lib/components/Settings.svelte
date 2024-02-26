@@ -1,24 +1,15 @@
 <script lang="ts">
     import { onMount } from 'svelte'
-    import { getView } from '$lib/stores/view'
-    import type { View } from '$lib/stores/view'
 
-    import { getEffect } from '$lib/stores/effect'
-    import { getImage, INIT_IMAGE } from '$lib/stores/image'
+    import { resetImage } from '$lib/stores/image'
+    import { updateEffect } from '$lib/stores/effect'
+    import { updateView, type View } from '$lib/stores/view'
 
     export let vertical: boolean = false
 
-    const view = getView()
-    const image = getImage()
-    const effect = getEffect()
-
     function clearFile() {
-        image.set(INIT_IMAGE)
-        effect.set('none')
-    }
-
-    function updateView(newView: View) {
-        view.set(newView)
+        resetImage()
+        updateEffect('none')
     }
 
     function handleKeys(event: KeyboardEvent) {
@@ -47,7 +38,7 @@
     })
 </script>
 
-<div class="absolute left-1 lg:left-3 xl:left-4">
+<div class="absolute md:left-1 lg:left-2 xl:left-4">
     <div class="fixed top-6 flex flex-{dir}" class:setting-h={!vertical} class:setting-v={vertical}>
         <button on:click|preventDefault={clearFile} class="inline-flex place-content-center">
             <svg

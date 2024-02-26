@@ -1,13 +1,15 @@
 <script lang="ts">
     import { onMount } from 'svelte'
+
     import { getView } from '$lib/stores/view'
-    import { getModal } from '$lib/stores/modal'
     import { getImage } from '$lib/stores/image'
-    import { updateAspectRatio } from '$lib/utils/aspect'
+    import { getModal, updateModal } from '$lib/stores/modal'
 
     import ImageSlider from './ImageSlider.svelte'
     import ImagePreview from './ImagePreview.svelte'
     import ViewActionButtons from './ViewActionButtons.svelte'
+
+    import { updateAspectRatio } from '$lib/utils/aspect'
 
     const view = getView()
     const modal = getModal()
@@ -17,7 +19,7 @@
         if (!$modal.visible) return
         if (!['Esc', 'Escape'].includes(evt.key)) return
 
-        modal.update((prevState) => ({ ...prevState, effect: 'none', visible: false }))
+        updateModal({ effect: 'none', visible: false })
     }
 
     $: effect = $modal.effect

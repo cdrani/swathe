@@ -1,8 +1,9 @@
 <script lang="ts">
     import { onMount } from 'svelte'
+
     import { effectsList } from '$lib/effects'
     import { getView } from '$lib/stores/view'
-    import { getEffect, type Effect } from '$lib/stores/effect'
+    import { getEffect, type Effect, updateEffect } from '$lib/stores/effect'
 
     const view = getView()
     const effect = getEffect()
@@ -10,8 +11,8 @@
 
     function handleEffect(e: MouseEvent) {
         const button = e.target as HTMLButtonElement
-        const chosenEffect = button.getAttribute('aria-label') ?? 'none'
-        effect.set(chosenEffect as Effect)
+        const chosenEffect = button.getAttribute('aria-label') ?? ('none' as Effect)
+        updateEffect(chosenEffect)
 
         $view == 'gallery' && scrollToEffect()
     }
@@ -45,7 +46,7 @@
             ? Math.max(0, indexOfCurrentEffect - 1)
             : Math.min(effectsList.length - 1, indexOfCurrentEffect + 1)
 
-        effect.set(effectsList[newEffectIndex])
+        updateEffect(effectsList[newEffectIndex])
 
         timeoutId = setTimeout(scrollToEffect, 200)
     }

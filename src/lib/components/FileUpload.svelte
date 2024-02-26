@@ -1,10 +1,9 @@
 <script lang="ts">
     import { onMount } from 'svelte'
-    import { getImage } from '$lib/stores/image'
     import { listen } from '@tauri-apps/api/event'
     import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 
-    const image = getImage()
+    import { updateImage } from '$lib/stores/image'
 
     async function handleFile() {
         await optimizeImage()
@@ -21,7 +20,7 @@
         const src = decodeURIComponent(convertFileSrc(filePath as string))
 
         // TODO: use actual filename!!
-        image.set({ src, name: 'screenshot', aspect: Number(aspect.toPrecision(3)) })
+        updateImage({ src, name: 'screenshot', aspect: Number(aspect.toPrecision(3)) })
     }
 
     onMount(async () => {

@@ -3,9 +3,9 @@
 
     import { onMount } from 'svelte'
     import { initView, getView } from '$lib/stores/view'
-    import { initModal, getModal } from '$lib/stores/modal'
     import { initImage, getImage } from '$lib/stores/image'
     import { initEffect, getEffect } from '$lib/stores/effect'
+    import { initModal, getModal, updateModal } from '$lib/stores/modal'
 
     import { downloadImage } from '$lib/utils/download'
     import { updateAspectRatio } from '$lib/utils/aspect'
@@ -43,7 +43,7 @@
 
         if (mKey || fKey) {
             const shouldHide = visible && ((mKey && !full) || (fKey && full))
-            modal.set({ full: fKey, effect: $effect, visible: !shouldHide })
+            updateModal({ full: fKey, effect: $effect, visible: !shouldHide })
             fKey && updateAspectRatio($image.aspect)
         }
     }
