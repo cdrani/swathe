@@ -1,17 +1,15 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import { getEffect } from '$lib/stores/effect'
     import { resetImage } from '$lib/stores/image'
+    import { updateEffect } from '$lib/stores/effect'
     import { updateView, type View } from '$lib/stores/view'
 
     export let vertical: boolean = false
 
-    const effect = getEffect()
-
     function clearFile() {
         resetImage()
-        effect.set('none')
+        updateEffect('none')
     }
 
     function handleKeys(event: KeyboardEvent) {
