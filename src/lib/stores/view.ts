@@ -9,11 +9,16 @@ const INIT_STATE: View = 'preview'
 
 type Context = Writable<View>
 
+const view = writable<View>(INIT_STATE)
+
 export function initView() {
-    const view = writable<View>(INIT_STATE)
     setContext(STORE, view)
 }
 
 export function getView() {
     return getContext<Context>(STORE)
+}
+
+export function updateView(state: View) {
+    view.set(state)
 }
