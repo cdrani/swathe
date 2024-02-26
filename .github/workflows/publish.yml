@@ -3,10 +3,11 @@ name: 'publish'
 on:
     push:
         branches:
-            - release
+            - develop
 
 jobs:
     publish-tauri:
+        if: "startsWith(github.event.head_commit.message, 'docs: bump version to v')"
         permissions:
             contents: write
         strategy:
