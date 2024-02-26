@@ -31,7 +31,7 @@
         <button
             aria-label="download"
             on:click={downloadImageEffect}
-            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white p-1 rounded items-center justify-center"
+            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white p-1 rounded-md items-center justify-center"
         >
             <svg
                 class:small
@@ -50,7 +50,7 @@
         <button
             aria-label="medium screen"
             on:click|stopPropagation={() => openModal(false)}
-            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white p-1 rounded justify-center items-center ml-2"
+            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white p-1 rounded-md justify-center items-center ml-2"
             class:hidden={!small && visible}
         >
             <svg
@@ -69,7 +69,7 @@
         <button
             aria-label="open fullscreen"
             on:click|stopPropagation={() => openModal(true)}
-            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white rounded p-1 justify-center items-center ml-2"
+            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white rounded-md p-1 justify-center items-center ml-2"
             class:hidden={visible && full}
         >
             <svg
@@ -93,7 +93,7 @@
         <button
             aria-label="exit fullscreen"
             on:click|stopPropagation={() => openModal(false)}
-            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white rounded p-1 justify-center items-center ml-2"
+            class="inline-flex bg-gray-900 h-fit w-fit border-solid border-2 border-white rounded-md p-1 justify-center items-center ml-2"
             class:hidden={!visible || !full}
         >
             <svg
@@ -116,7 +116,7 @@
         <button
             on:click={closeModal}
             aria-label="close modal"
-            class="flex bg-gray-900 border-solid h-fit w-fit border-2 border-white rounded p-1 justify-center items-center ml-2"
+            class="flex bg-gray-900 border-solid h-fit w-fit border-2 border-white rounded-md p-1 justify-center items-center ml-2"
             class:hidden={small || !visible}
         >
             <svg
