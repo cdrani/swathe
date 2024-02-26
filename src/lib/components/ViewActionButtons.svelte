@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getModal } from '$lib/stores/modal'
+    import { getModal, openModal, closeModal } from '$lib/stores/modal'
     import { downloadImage } from '$lib/utils/download'
     import type { Effect } from '$lib/stores/effect'
 
@@ -12,14 +12,6 @@
 
     async function downloadImageEffect() {
         await downloadImage({ visible: $modal.visible, effect })
-    }
-
-    function openModal(full: boolean) {
-        modal.set({ effect, visible: true, full })
-    }
-
-    function closeModal() {
-        modal.update((prevState) => ({ ...prevState, effect: 'none', visible: false }))
     }
 
     $: visible = $modal.visible
