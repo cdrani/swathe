@@ -10,11 +10,20 @@ export const INIT_IMAGE: Image = {}
 
 type Context = Writable<Image>
 
+const image = writable<Image>(INIT_IMAGE)
+
 export function initImage() {
-    const image = writable<Image>(INIT_IMAGE)
     setContext(STORE, image)
 }
 
 export function getImage() {
     return getContext<Context>(STORE)
+}
+
+export function resetImage() {
+    image.set(INIT_IMAGE)
+}
+
+export function updateImage(state: Image) {
+    image.set(state)
 }

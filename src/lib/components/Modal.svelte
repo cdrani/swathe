@@ -1,8 +1,9 @@
 <script lang="ts">
     import { onMount } from 'svelte'
+
+    import { getImage } from '$lib/stores/image'
     import { getView } from '$lib/stores/view'
     import { getModal, updateModal } from '$lib/stores/modal'
-    import { getImage } from '$lib/stores/image'
     import { updateAspectRatio } from '$lib/utils/aspect'
 
     import ImageSlider from './ImageSlider.svelte'

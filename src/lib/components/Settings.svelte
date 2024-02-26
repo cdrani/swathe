@@ -4,16 +4,15 @@
     import type { View } from '$lib/stores/view'
 
     import { getEffect } from '$lib/stores/effect'
-    import { getImage, INIT_IMAGE } from '$lib/stores/image'
+    import { resetImage } from '$lib/stores/image'
 
     export let vertical: boolean = false
 
     const view = getView()
-    const image = getImage()
     const effect = getEffect()
 
     function clearFile() {
-        image.set(INIT_IMAGE)
+        resetImage()
         effect.set('none')
     }
 
